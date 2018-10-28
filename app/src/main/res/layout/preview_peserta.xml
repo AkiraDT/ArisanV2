@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="380dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/preview_profile_background"
+            android:layout_width="288dp"
+            android:layout_height="348dp"
+            app:cardElevation="1dp"
+            app:cardCornerRadius="10dp"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="48dp"
+                android:src="@drawable/tumblr_opq5t2c3pd1qbytw2o4_r1_5401"
+                android:layout_gravity="center_horizontal"
+                android:elevation="2dp"
+                />
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                >
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="102dp"
+                    android:background="@color/colorPrimaryDark"
+                    />
+                <TextView
+                    android:id="@+id/textview_preview_nama_peserta"
+                    android:layout_marginTop="56dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hishiro Chihiro"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    />
+                <TextView
+                    android:id="@+id/textview_preview_notelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="081572818978"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    />
+                <TextView
+                    android:id="@+id/textview_preview_screen_alamat"
+                    android:layout_marginTop="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jl. Pegangsaan Timur No.56 Jakarta Selatan"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/close_btn"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="1dp"
+        />
+    </RelativeLayout>
+</RelativeLayout>

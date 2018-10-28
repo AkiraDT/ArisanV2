@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_peserta"
+        android:icon="@drawable/anggota"
+        android:title="Peserta" />
+
+    <item
+        android:id="@+id/navigation_kelompok"
+        android:icon="@drawable/kelompok"
+        android:title="Kelompok" />
+
+    <item
+    android:id="@+id/navigation_tagihan"
+    android:icon="@drawable/tagihan_1"
+    android:title="Tagihan" />
+
+    <item
+        android:id="@+id/navigation_kocok"
+        android:icon="@drawable/kocok_undian"
+        android:title="Kocok"
+        />
+
+    <item
+        android:id="@+id/navigation_pemenang"
+        android:icon="@drawable/winner"
+        android:title="Pemenang" />
+
+</menu>
