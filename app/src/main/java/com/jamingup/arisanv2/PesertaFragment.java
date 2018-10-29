@@ -1,6 +1,8 @@
 package com.jamingup.arisanv2;
 
 import android.app.Dialog;
+import android.app.VoiceInteractor;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -8,11 +10,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -108,7 +112,6 @@ public class PesertaFragment extends Fragment {
             "Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare",
                 "Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare",
                 "Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare"};
-
     }
 
     private void addPeserta(){
@@ -116,12 +119,20 @@ public class PesertaFragment extends Fragment {
         final TextView namaPeserta = (TextView) view.findViewById(R.id.label_name);
         final TextView notelp = (TextView) view.findViewById(R.id.label_telp);
         final TextView alamat = (TextView) view.findViewById(R.id.label_alamat);
+        final TextView kode = (TextView) view.findViewById(R.id.kode_reg);
         ImageButton cancelButton = (ImageButton) view.findViewById(R.id.cancel_button);
         ImageButton acceptButton = (ImageButton) view.findViewById(R.id.accept_button);
+        final EditText editNamaPeserta = (EditText) view.findViewById(R.id.add_nama);
+        final EditText editNotelp = (EditText) view.findViewById(R.id.add_telp);
+        final EditText editAlamat = (EditText) view.findViewById(R.id.add_alamat);
 
         namaPeserta.setTypeface(comicSansFont);
         notelp.setTypeface(comicSansFont);
         alamat.setTypeface(comicSansFont);
+        kode.setTypeface(comicSansFont);
+        editNamaPeserta.setTypeface(comicSansFont);
+        editNotelp.setTypeface(comicSansFont);
+        editAlamat.setTypeface(comicSansFont);
 
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(view);
@@ -132,7 +143,13 @@ public class PesertaFragment extends Fragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                if(editNamaPeserta.getText().length() != 0 || editNotelp.getText().length() != 0
+                        || editAlamat.getText().length() != 0){
+                    discardConfirmation(dialog);
+                }
+                else{
+                   dialog.dismiss();
+                }
             }
         });
 
@@ -142,6 +159,28 @@ public class PesertaFragment extends Fragment {
                 Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    void discardConfirmation(final Dialog dialog){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Anda yakin ingin membatalkan aksi");
+        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (dialogInterface != null) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {

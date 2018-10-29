@@ -6,12 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <RelativeLayout
-        android:layout_width="272dp"
+        android:layout_width="280dp"
         android:layout_height="372dp">
 
         <android.support.v7.widget.CardView
             android:id="@+id/preview_profile_background"
-            android:layout_width="272dp"
+            android:layout_width="280dp"
             android:layout_height="372dp"
             app:cardElevation="1dp"
             app:cardCornerRadius="10dp"
@@ -73,7 +73,6 @@
                                 android:gravity="bottom"/>
                                 <EditText
                                     android:id="@+id/add_nama"
-                                    android:autofillHints="Masukan data"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="textCapWords"
@@ -96,6 +95,7 @@
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
                                     <EditText
+                                        android:id="@+id/kode_reg"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="+62"
@@ -104,7 +104,6 @@
                                         />
                                     <EditText
                                         android:id="@+id/add_telp"
-                                        android:autofillHints="Masukan data"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:textSize="20sp"
@@ -124,7 +123,6 @@
                                 android:layout_marginBottom="8dp"/>
                                 <EditText
                                     android:id="@+id/add_alamat"
-                                    android:autofillHints="Masukan data"
                                     android:inputType="textMultiLine"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
