@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PesertaFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler_view_peserta"
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler_view_peserta"
+            android:scrollbars="vertical"
+            android:scrollbarSize="5dp"
+            android:overScrollMode="ifContentScrolls"
+            android:scrollbarFadeDuration="1"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            app:maxImageSize="@android:dimen/app_icon_size"
+            android:src="@drawable/btn_after_list"
+            app:elevation="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            />
+
+    <ImageButton
+        android:id="@+id/button_add_peserta_empty"
+        android:layout_centerInParent="true"
+        android:layout_width="224dp"
+        android:layout_height="224dp"
+        android:background="@drawable/addbtn_empty_page"
         />
 
-</LinearLayout>
+</RelativeLayout>

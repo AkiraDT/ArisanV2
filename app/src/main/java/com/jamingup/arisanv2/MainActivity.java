@@ -3,6 +3,7 @@ package com.jamingup.arisanv2;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private PesertaFragment pesertaFrag;
     private Dialog dialog;
+    private Typeface comicSansFont;
+    private TextView toolbarText;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        comicSansFont = Typeface.createFromAsset(getAssets(), "fonts/comic.ttf");
+        toolbarText = (TextView) findViewById(R.id.toolbar_text);
+
         dialog = new Dialog(this);
         fragmentManager = getSupportFragmentManager();
         pesertaFrag = new PesertaFragment();
@@ -84,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TextView toolbar_text = (TextView) findViewById(R.id.toolbar_text);
+        toolbar_text.setTypeface(comicSansFont);
         if(toolbar_text != null && toolbar != null){
             toolbar_text.setText(getTitle());
             setSupportActionBar(toolbar);
@@ -98,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         View viewPop = LayoutInflater.from(this).inflate(R.layout.about_jamming, null, false);
 
         dialog.setContentView(viewPop);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
