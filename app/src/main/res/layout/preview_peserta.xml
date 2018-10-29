@@ -73,7 +73,6 @@
         android:focusable="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="closeDialog"
         android:elevation="2dp"
         />
     </RelativeLayout>

@@ -1,8 +1,6 @@
 package com.jamingup.arisanv2;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -10,22 +8,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.security.acl.Group;
-
-import androidx.recyclerview.selection.SelectionTracker;
-import androidx.recyclerview.selection.StableIdKeyProvider;
-import androidx.recyclerview.selection.StorageStrategy;
 
 
 public class PesertaFragment extends Fragment {
@@ -55,16 +45,14 @@ public class PesertaFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), TambahPesertaActivity.class);
-//                startActivity(intent);
-                Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
+                addPeserta();
             }
         });
 
         bigAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
+                addPeserta();
             }
         });
 
@@ -121,6 +109,39 @@ public class PesertaFragment extends Fragment {
                 "Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare",
                 "Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare"};
 
+    }
+
+    private void addPeserta(){
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.add_peserta_form, null, false);
+        final TextView namaPeserta = (TextView) view.findViewById(R.id.label_name);
+        final TextView notelp = (TextView) view.findViewById(R.id.label_telp);
+        final TextView alamat = (TextView) view.findViewById(R.id.label_alamat);
+        ImageButton cancelButton = (ImageButton) view.findViewById(R.id.cancel_button);
+        ImageButton acceptButton = (ImageButton) view.findViewById(R.id.accept_button);
+
+        namaPeserta.setTypeface(comicSansFont);
+        notelp.setTypeface(comicSansFont);
+        alamat.setTypeface(comicSansFont);
+
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
