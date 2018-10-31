@@ -42,7 +42,8 @@ public class PesertaFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private  String [] myDataset;
+    private String [] myDataset;
+
     private ImageButton bigAddButton;
     private FloatingActionButton fab;
     private Typeface comicSansFont;
