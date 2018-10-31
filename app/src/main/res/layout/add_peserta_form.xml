@@ -6,22 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <RelativeLayout
-        android:layout_width="280dp"
-        android:layout_height="372dp">
+        android:layout_width="wrap_content"
+        android:layout_height="372dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        >
 
         <android.support.v7.widget.CardView
             android:id="@+id/preview_profile_background"
-            android:layout_width="280dp"
+            android:layout_width="wrap_content"
             android:layout_height="372dp"
             app:cardElevation="1dp"
             app:cardCornerRadius="10dp"
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginTop="48dp"
-                android:src="@drawable/tumblr_opq5t2c3pd1qbytw2o4_r1_5401"
+                android:src="@android:drawable/ic_menu_camera"
+                app:civ_circle_background_color="@color/colorPrimary"
                 android:layout_gravity="center_horizontal"
                 android:elevation="2dp"
                 />
