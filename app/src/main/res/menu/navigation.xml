@@ -8,7 +8,8 @@
     <item
         android:id="@+id/navigation_kelompok"
         android:icon="@drawable/kelompok"
-        android:title="Kelompok" />
+        android:title="Kelompok"
+        />
 
     <item
     android:id="@+id/navigation_tagihan"

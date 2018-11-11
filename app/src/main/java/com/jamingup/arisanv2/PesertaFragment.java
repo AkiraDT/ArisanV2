@@ -2,7 +2,8 @@ package com.jamingup.arisanv2;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.app.VoiceInteractor;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,24 +14,28 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -40,21 +45,31 @@ public class PesertaFragment extends Fragment {
     public static final int IMAGE_GALERY_REQUEST_CODE = 10;
     public static final int CAMERA_REQUEST_CODE = 1;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private AdapterPeserta mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String [] myDataset;
 
     private ImageButton bigAddButton;
     private FloatingActionButton fab;
-    private Typeface comicSansFont;
+    private Typeface TextMeOneStyle;
     private CircleImageView imgThumbnail;
     private Bitmap bmpImage;
     String[] permissionRequest = {Manifest.permission.CAMERA};
 
+    private PesertaViewModel pesertaViewModel;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        comicSansFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/comic.ttf");
-        setData();
+        pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
+        pesertaViewModel.getAllPeserta().observe(this, new Observer<List<Peserta>>() {
+            @Override
+            public void onChanged(@Nullable List<Peserta> pesertas) {
+                //update RecyclerView
+                mAdapter.submitList(pesertas);
+            }
+        });
+
+        TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
+//        pesertaDataList = new ArrayList<Peserta>();
     }
 
     @Override
@@ -89,29 +104,32 @@ public class PesertaFragment extends Fragment {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+
 
         // specify an adapter (see also next example)
-        mAdapter = new AdapterPeserta(myDataset, getContext(), comicSansFont);
+        mAdapter = new AdapterPeserta(TextMeOneStyle);
+//        mAdapter.submitList(pesertaDataList);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
-                    fab.hide();
-                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
-                    fab.show();
-                }
-            }
-        });
-
+//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
+//                    fab.hide();
+//                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
+//                    fab.show();
+//                }
+//            }
+//        });
+//
         dataCheck();
 
         return view;
     }
 
     void dataCheck(){
-        if(myDataset == null){
+        if(pesertaViewModel.getAllPeserta() == null){
             fab.hide();
             mRecyclerView.setVisibility(View.GONE);
             bigAddButton.setVisibility(View.VISIBLE);
@@ -119,19 +137,7 @@ public class PesertaFragment extends Fragment {
             fab.show();
             mRecyclerView.setVisibility(View.VISIBLE);
             bigAddButton.setVisibility(View.GONE);
-
         }
-    }
-
-    void setData(){
-        myDataset = new String[50];
-//        for (int i = 0; i < 50; i++) {
-//            myDataset[i] = "Boler " + (i+1) + " Bin Pitak " + i;
-//        }
-        myDataset =new String[]{"Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare",
-            "Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare",
-                "Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare",
-                "Saya", "dia", "kamu", "Anata", "Watashi", "Boku", "Kare"};
     }
 
     private void addPeserta(){
@@ -140,20 +146,22 @@ public class PesertaFragment extends Fragment {
         final TextView notelp = (TextView) view.findViewById(R.id.label_telp);
         final TextView alamat = (TextView) view.findViewById(R.id.label_alamat);
         final TextView kode = (TextView) view.findViewById(R.id.kode_reg);
-        ImageButton cancelButton = (ImageButton) view.findViewById(R.id.cancel_button);
-        ImageButton acceptButton = (ImageButton) view.findViewById(R.id.accept_button);
+        Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
+        Button acceptButton = (Button) view.findViewById(R.id.accept_button);
         final EditText editNamaPeserta = (EditText) view.findViewById(R.id.add_nama);
         final EditText editNotelp = (EditText) view.findViewById(R.id.add_telp);
         final EditText editAlamat = (EditText) view.findViewById(R.id.add_alamat);
         imgThumbnail = (CircleImageView) view.findViewById(R.id.img_profile);
 
-        namaPeserta.setTypeface(comicSansFont);
-        notelp.setTypeface(comicSansFont);
-        alamat.setTypeface(comicSansFont);
-        kode.setTypeface(comicSansFont);
-        editNamaPeserta.setTypeface(comicSansFont);
-        editNotelp.setTypeface(comicSansFont);
-        editAlamat.setTypeface(comicSansFont);
+        namaPeserta.setTypeface(TextMeOneStyle);
+        notelp.setTypeface(TextMeOneStyle);
+        alamat.setTypeface(TextMeOneStyle);
+        kode.setTypeface(TextMeOneStyle);
+        editNamaPeserta.setTypeface(TextMeOneStyle);
+        editNotelp.setTypeface(TextMeOneStyle);
+        editAlamat.setTypeface(TextMeOneStyle);
+        cancelButton.setTypeface(TextMeOneStyle);
+        acceptButton.setTypeface(TextMeOneStyle);
         bmpImage = null;
 
         final Dialog dialog = new Dialog(getContext());
@@ -177,13 +185,20 @@ public class PesertaFragment extends Fragment {
             }
         });
 
-        //untuk menyimpan data
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        //untuk menyimpan data
+//        acceptButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
+//                if(editNamaPeserta.getText().length() != 0 && editNotelp.getText().length() != 0
+//                        && editAlamat.getText().length() != 0 && bmpImage != null){
+//                    saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage);
+//                    dialog.dismiss();
+//                }else{
+//                    Toast.makeText(getContext(), "Data harus terisi Semua", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         //Ketika gambar profile di klik akan menampilkan pilihan upload image
         imgThumbnail.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +215,7 @@ public class PesertaFragment extends Fragment {
         ImageButton btnTakePhoto = (ImageButton) view.findViewById(R.id.btn_take_photo);
         ImageButton btnGallery = (ImageButton) view.findViewById(R.id.btn_gallery);
 
-        labelText.setTypeface(comicSansFont);
+        labelText.setTypeface(TextMeOneStyle);
 
         final Dialog dialogImageUpload = new Dialog(getContext());
         dialogImageUpload.setContentView(view);
@@ -244,7 +259,6 @@ public class PesertaFragment extends Fragment {
             openImage();
         }else {
             String[] permissionRequest = {Manifest.permission.READ_EXTERNAL_STORAGE};
-//            ActivityCompat.requestPermissions(getActivity(), permissionRequest, IMAGE_GALERY_REQUEST_CODE);
         }
     }
 
@@ -298,19 +312,6 @@ public class PesertaFragment extends Fragment {
         }
     }
 
-    //    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        Toast.makeText(getContext(), "Laka Permission", Toast.LENGTH_SHORT).show();
-//                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-////        if(requestCode == CAMERA_PERMISSION_REQUEST_CODE){
-////            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-////                invokeCamera();
-////            }else {
-////                Toast.makeText(getContext(),"Can't take photo without permission", Toast.LENGTH_SHORT).show();
-////            }
-////        }
-//    }
-
     private void invokeCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
@@ -330,6 +331,13 @@ public class PesertaFragment extends Fragment {
             }
         }
     }
+
+//    //Uuntuk menyimpan data peserta dan menambahakan ke list
+//    private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img){
+//        pesertaDataList.add(new Peserta(pesertaDataList.size() , nama, noTelp, alamat));
+//        mAdapter.submitList(pesertaDataList);
+//        Toast.makeText(getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+//    }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);

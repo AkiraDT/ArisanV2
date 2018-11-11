@@ -5,6 +5,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
+import android.support.v7.recyclerview.extensions.ListAdapter;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +17,37 @@ import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterPeserta extends RecyclerView.Adapter<AdapterPeserta.ViewHolder> {
+public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHolder> {
     private static final String TAG = "AdapterPeserta";
-    private String[] mDataSet;
     private Context context;
-    private Typeface comicSansFont;
+    private Typeface TextMeOneStyle;
+
+    public AdapterPeserta(Typeface typeface) {
+        super(DIFF_CALLBACK);
+        TextMeOneStyle = typeface;
+    }
+
+    private static final DiffUtil.ItemCallback<Peserta> DIFF_CALLBACK = new DiffUtil.ItemCallback<Peserta>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Peserta pesertaData, @NonNull Peserta newPesertaData) {
+            return pesertaData.getId() == newPesertaData.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Peserta pesertaData, @NonNull Peserta newPesertaData) {
+            return pesertaData.getNama().equals(newPesertaData.getNama());
+        }
+    };
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        private final TextView textView;
+        private final TextView textViewNama;
+        private final TextView textViewKelompok;
+        private final CircleImageView imageViewPeserta;
+
         private ItemClickListener itemClickListener;
         public ViewHolder(View v, Typeface typeface) {
             super(v);
@@ -33,12 +55,25 @@ public class AdapterPeserta extends RecyclerView.Adapter<AdapterPeserta.ViewHold
             v.setOnClickListener(this);
             v.setOnLongClickListener(this);
 
-            textView = (TextView) v.findViewById(R.id.textView_peserta_list_content);
-            textView.setTypeface(typeface);
+            textViewNama = (TextView) v.findViewById(R.id.textView_peserta_list_content);
+            textViewNama.setTypeface(typeface);
+
+            textViewKelompok = (TextView) v.findViewById(R.id.textView_keanggotaan_list_content);
+            textViewKelompok.setTypeface(typeface);
+
+            imageViewPeserta = (CircleImageView) v.findViewById(R.id.img_profile);
         }
 
-        public TextView getTextView() {
-            return textView;
+        public TextView getTextViewNama() {
+            return textViewNama;
+        }
+
+        public TextView getTextViewKelompok() {
+            return textViewKelompok;
+        }
+
+        public CircleImageView getImageViewPeserta() {
+            return imageViewPeserta;
         }
 
         public void setItemClickListener(ItemClickListener itemClickListener){
@@ -56,48 +91,26 @@ public class AdapterPeserta extends RecyclerView.Adapter<AdapterPeserta.ViewHold
             return true;
         }
     }
-    // END_INCLUDE(recyclerViewSampleViewHolder)
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
-     */
-    public AdapterPeserta(String[] dataSet, Context context, Typeface typeface) {
-        mDataSet = dataSet;
-        this.context = context;
-        comicSansFont = typeface;
-    }
-
-    // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
-    // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.peserta_list_content, viewGroup, false);
 
-        return new ViewHolder(v, comicSansFont);
+        return new ViewHolder(v, TextMeOneStyle);
     }
-    // END_INCLUDE(recyclerViewOnCreateViewHolder)
 
-    // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
-        if(position % 2 != 0){
-            viewHolder.getTextView().setBackgroundResource(R.drawable.surface_namelist_odd);
-        }else{
-            viewHolder.getTextView().setBackgroundResource(R.drawable.surface_darkblue);
-        }
-        viewHolder.getTextView().setText(mDataSet[position]);
+        //add keanggotaan here later
+        viewHolder.getTextViewNama().setText(getItem(position).getNama());
+        viewHolder.getImageViewPeserta().setImageBitmap(getItem(position).getImg());
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if(isLongClick){
-                    Toast.makeText(context, "Long click "+ mDataSet[position], Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Long click "+ viewHolder.getTextViewNama().getText().toString(), Toast.LENGTH_SHORT).show();
                 }else{
                     previewKelompok(position);
                     //Toast.makeText(context, ""+ mDataSet[position], Toast.LENGTH_SHORT).show();
@@ -105,22 +118,23 @@ public class AdapterPeserta extends RecyclerView.Adapter<AdapterPeserta.ViewHold
             }
         });
     }
+
     private void previewKelompok(int pos){
         View view = LayoutInflater.from(context).inflate(R.layout.preview_peserta, null, false);
         final TextView namaPeserta = (TextView) view.findViewById(R.id.textview_preview_nama_peserta);
         final TextView notelp = (TextView) view.findViewById(R.id.textview_preview_notelp);
         final TextView alamat = (TextView) view.findViewById(R.id.textview_preview_screen_alamat);
         CircleImageView button = (CircleImageView) view.findViewById(R.id.dismiss_preview_button);
+        CircleImageView profilePic = (CircleImageView) view.findViewById(R.id.img_profile);
 
-        namaPeserta.setTypeface(comicSansFont);
-        notelp.setTypeface(comicSansFont);
-        alamat.setTypeface(comicSansFont);
+        namaPeserta.setTypeface(TextMeOneStyle);
+        notelp.setTypeface(TextMeOneStyle);
+        alamat.setTypeface(TextMeOneStyle);
 
-        namaPeserta.setText(mDataSet[pos]);
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context)
-//                .setTitle("")
-//                .setView(view);
-//        builder.create().show();
+        namaPeserta.setText(getItem(pos).getNama());
+        notelp.setText(getItem(pos).getNoTelp());
+        alamat.setText(getItem(pos).getAlamat());
+        profilePic.setImageBitmap(getItem(pos).getImg());
 
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(view);
@@ -135,12 +149,5 @@ public class AdapterPeserta extends RecyclerView.Adapter<AdapterPeserta.ViewHold
             }
         });
     }
-
     // END_INCLUDE(recyclerViewOnBindViewHolder)
-
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return mDataSet.length;
-    }
 }
