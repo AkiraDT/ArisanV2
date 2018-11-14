@@ -31,7 +31,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -60,6 +59,12 @@ public class PesertaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
+        updateRecycler();
+
+        TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
+    }
+
+    private void updateRecycler() {
         pesertaViewModel.getAllPeserta().observe(this, new Observer<List<Peserta>>() {
             @Override
             public void onChanged(@Nullable List<Peserta> pesertas) {
@@ -67,9 +72,6 @@ public class PesertaFragment extends Fragment {
                 mAdapter.submitList(pesertas);
             }
         });
-
-        TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
-//        pesertaDataList = new ArrayList<Peserta>();
     }
 
     @Override
@@ -108,8 +110,7 @@ public class PesertaFragment extends Fragment {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new AdapterPeserta(TextMeOneStyle);
-//        mAdapter.submitList(pesertaDataList);
+        mAdapter = new AdapterPeserta(TextMeOneStyle, getContext());
         mRecyclerView.setAdapter(mAdapter);
 //        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //            @Override
@@ -185,20 +186,20 @@ public class PesertaFragment extends Fragment {
             }
         });
 
-//        //untuk menyimpan data
-//        acceptButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
-//                if(editNamaPeserta.getText().length() != 0 && editNotelp.getText().length() != 0
-//                        && editAlamat.getText().length() != 0 && bmpImage != null){
-//                    saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage);
-//                    dialog.dismiss();
-//                }else{
-//                    Toast.makeText(getContext(), "Data harus terisi Semua", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        //untuk menyimpan data
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
+                if(editNamaPeserta.getText().length() != 0 && editNotelp.getText().length() != 0
+                        && editAlamat.getText().length() != 0/* && bmpImage != null*/){
+                    saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage);
+                    dialog.dismiss();
+                }else{
+                    Toast.makeText(getContext(), "Data harus terisi Semua", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         //Ketika gambar profile di klik akan menampilkan pilihan upload image
         imgThumbnail.setOnClickListener(new View.OnClickListener() {
@@ -332,12 +333,12 @@ public class PesertaFragment extends Fragment {
         }
     }
 
-//    //Uuntuk menyimpan data peserta dan menambahakan ke list
-//    private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img){
-//        pesertaDataList.add(new Peserta(pesertaDataList.size() , nama, noTelp, alamat));
-//        mAdapter.submitList(pesertaDataList);
-//        Toast.makeText(getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
-//    }
+    //Uuntuk menyimpan data peserta dan menambahakan ke list
+    private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img){
+        pesertaViewModel.insert(new Peserta(nama, noTelp, alamat));
+        updateRecycler();
+        Toast.makeText(getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+    }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);

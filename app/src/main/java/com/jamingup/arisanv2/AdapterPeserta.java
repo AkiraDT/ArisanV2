@@ -22,9 +22,10 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
     private Context context;
     private Typeface TextMeOneStyle;
 
-    public AdapterPeserta(Typeface typeface) {
+    public AdapterPeserta(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
         TextMeOneStyle = typeface;
+        this.context = context;
     }
 
     private static final DiffUtil.ItemCallback<Peserta> DIFF_CALLBACK = new DiffUtil.ItemCallback<Peserta>() {
@@ -39,10 +40,6 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         }
     };
 
-    // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
-    /**
-     * Provide a reference to the type of views that you are using (custom ViewHolder)
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private final TextView textViewNama;
         private final TextView textViewKelompok;
@@ -105,7 +102,7 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //add keanggotaan here later
         viewHolder.getTextViewNama().setText(getItem(position).getNama());
-        viewHolder.getImageViewPeserta().setImageBitmap(getItem(position).getImg());
+//        viewHolder.getImageViewPeserta().setImageBitmap(getItem(position).getImg());
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
@@ -113,7 +110,7 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
                     Toast.makeText(context, "Long click "+ viewHolder.getTextViewNama().getText().toString(), Toast.LENGTH_SHORT).show();
                 }else{
                     previewKelompok(position);
-                    //Toast.makeText(context, ""+ mDataSet[position], Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "click "+ "Bisa", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -134,7 +131,7 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         namaPeserta.setText(getItem(pos).getNama());
         notelp.setText(getItem(pos).getNoTelp());
         alamat.setText(getItem(pos).getAlamat());
-        profilePic.setImageBitmap(getItem(pos).getImg());
+//        profilePic.setImageBitmap(getItem(pos).getImg());
 
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(view);
@@ -149,5 +146,4 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
             }
         });
     }
-    // END_INCLUDE(recyclerViewOnBindViewHolder)
 }
