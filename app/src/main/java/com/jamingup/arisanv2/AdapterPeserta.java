@@ -116,6 +116,10 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         });
     }
 
+    public Peserta getPesertaAt(int pos){
+        return getItem(pos);
+    }
+
     private void previewKelompok(int pos){
         View view = LayoutInflater.from(context).inflate(R.layout.preview_peserta, null, false);
         final TextView namaPeserta = (TextView) view.findViewById(R.id.textview_preview_nama_peserta);

@@ -8,7 +8,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-@Database(entities = {Peserta.class}, version = 1)
+@Database(entities = {Peserta.class}, version = 2)
 public abstract class ArisanDatabase extends RoomDatabase {
 
     private static ArisanDatabase instance;
@@ -30,7 +30,7 @@ public abstract class ArisanDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
+//            new PopulateDbAsyncTask(instance).execute();
         }
     };
 
