@@ -1,48 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="72dp"
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
-    android:layout_marginTop="8dp"
-    >
+    android:layout_marginTop="8dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_profile"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
+        android:id="@+id/img_profile_kelompok"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:src="@drawable/tumblr_opq5t2c3pd1qbytw2o4_r1_5401"
         />
+        <TextView
+            android:id="@+id/badge_kelompok"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/badge_red"
+            android:text="22"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="42dp"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginStart="56dp"
         android:paddingTop="8dp">
         <TextView
-            android:id="@+id/textView_peserta_list_content"
+            android:id="@+id/textView_kelompok_list_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jammers 22"
+            android:text="Jamming Down"
             android:maxLines="1"
             android:textSize="24sp"
-            android:paddingLeft="16dp"
+            android:paddingLeft="24dp"
             android:paddingRight="16dp"
             android:paddingTop="4dp"
             android:textColor="#000"
             android:gravity="center_vertical"
             android:ellipsize="end"/>
         <TextView
-            android:id="@+id/textView_keanggotaan_list_content"
+            android:id="@+id/textView_nominal_list_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jamming"
+            android:text="Rp. 22.000.000"
             android:textSize="12sp"
-            android:paddingLeft="20dp"
+            android:paddingLeft="24dp"
             android:paddingRight="16dp"
-            android:textColor="#000"
+            android:textColor="@android:color/darker_gray"
             android:gravity="center_vertical"
             android:ellipsize="end"
             android:maxLines="1"/>
@@ -50,8 +63,7 @@
             android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginStart="8dp"
             android:background="@android:color/background_dark"
             />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
