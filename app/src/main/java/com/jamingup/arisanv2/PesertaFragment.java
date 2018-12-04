@@ -31,23 +31,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
-
 import static android.app.Activity.RESULT_OK;
 
 
 public class PesertaFragment extends Fragment {
+
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 2;
     public static final int IMAGE_GALERY_REQUEST_CODE = 10;
     public static final int CAMERA_REQUEST_CODE = 1;
     private RecyclerView mRecyclerView;
     private AdapterPeserta mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     private ImageButton bigAddButton;
     private FloatingActionButton fab;
     private Typeface TextMeOneStyle;
@@ -61,7 +58,6 @@ public class PesertaFragment extends Fragment {
         super.onCreate(savedInstanceState);
         pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
         updateRecycler();
-
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
     }
 
@@ -82,7 +78,6 @@ public class PesertaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_peserta, container, false);
 
         bigAddButton = (ImageButton) view.findViewById(R.id.button_add_peserta_empty);
-
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,29 +85,24 @@ public class PesertaFragment extends Fragment {
                 addPeserta();
             }
         });
-
         bigAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addPeserta();
             }
         });
-
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_peserta);
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
-
-
         // specify an adapter (see also next example)
         mAdapter = new AdapterPeserta(TextMeOneStyle, getContext());
         mRecyclerView.setAdapter(mAdapter);
+
 //        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //            @Override
 //            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -124,7 +114,6 @@ public class PesertaFragment extends Fragment {
 //                }
 //            }
 //        });
-//
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
                 ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
@@ -139,9 +128,8 @@ public class PesertaFragment extends Fragment {
                 Toast.makeText(getContext(),mAdapter.getPesertaAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(mRecyclerView);
-
         dataCheck();
-
+        updateRecycler();
         return view;
     }
 
@@ -231,9 +219,7 @@ public class PesertaFragment extends Fragment {
         final TextView labelText = (TextView) view.findViewById(R.id.label_text);
         ImageButton btnTakePhoto = (ImageButton) view.findViewById(R.id.btn_take_photo);
         ImageButton btnGallery = (ImageButton) view.findViewById(R.id.btn_gallery);
-
         labelText.setTypeface(TextMeOneStyle);
-
         final Dialog dialogImageUpload = new Dialog(getContext());
         dialogImageUpload.setContentView(view);
         dialogImageUpload.setCanceledOnTouchOutside(false);

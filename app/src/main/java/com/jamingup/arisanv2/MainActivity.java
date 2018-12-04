@@ -21,17 +21,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
     private BottomNavigationView navigation;
     private FragmentManager fragmentManager;
     private PesertaFragment pesertaFrag;
+    private KelompokFragment kelompokFrag;
+    private BlankFragment tagihanFrag;
+    private KocokFragment kocokFrag;
+
     private Dialog dialog;
     private Typeface TextMeOneStyle;
     private TextView toolbarText;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Intent i;
@@ -42,19 +44,25 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     setTitle("Peserta Arisan");
                     return true;
-                /*case R.id.navigation_kelompok:
+                case R.id.navigation_kelompok:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.content, kelompokArisanFrag)
+                            .replace(R.id.mainContent, kelompokFrag)
                             .commit();
                     setTitle("Kelompok Arisan");
                     return true;
+                case R.id.navigation_tagihan:
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.mainContent, tagihanFrag)
+                            .commit();
+                    setTitle("Tagihan Arisan");
+                    return true;
                 case R.id.navigation_kocok:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.content, pilihKelompokKocokFrag)
+                            .replace(R.id.mainContent, kocokFrag)
                             .commit();
                     setTitle("Kocok Arisan");
                     return true;
-                case R.id.navigation_pemenang:
+                /*case R.id.navigation_pemenang:
                     fragmentManager.beginTransaction()
                             .replace(R.id.content, pilihKelompokPemenangFrag)
                             .commit();
@@ -64,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         }
-
     };
 
     @Override
@@ -78,10 +85,14 @@ public class MainActivity extends AppCompatActivity {
         dialog = new Dialog(this);
         fragmentManager = getSupportFragmentManager();
         pesertaFrag = new PesertaFragment();
+        kelompokFrag = new KelompokFragment();
+        tagihanFrag = new BlankFragment();
+        kocokFrag = new KocokFragment();
 
         fragmentManager.beginTransaction()
                 .add(R.id.mainContent , pesertaFrag)
                 .commit();
+
         toolbarSetting();
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
@@ -107,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        if (savedInstanceState != null)
+        if (savedInstanceState != null){
             navigation.setSelectedItemId(savedInstanceState.getInt("idNav"));
+        }
     }
 
     void toolbarSetting(){

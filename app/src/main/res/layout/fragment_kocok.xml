@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KocokFragment">
+
+    <ImageView
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/background"
+        android:layout_marginTop="56dp"
+        android:layout_marginStart="48dp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/btn_shake"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:src="@drawable/button_shake"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        />
+
+</RelativeLayout>
