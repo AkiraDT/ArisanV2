@@ -121,7 +121,7 @@
                                 android:orientation="horizontal">
                             <TextView
                                 android:id="@+id/label_interval"
-                                android:text="Setoran"
+                                android:text="Anggota"
                                 android:layout_width="78dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="20sp"
@@ -131,8 +131,10 @@
                                     android:inputType="number"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:maxLines="2"
-                                    android:textSize="20sp"/>
+                                    android:maxLines="1"
+                                    android:textSize="20sp"
+                                    android:maxLength="2"
+                                    />
                             </LinearLayout>
                         </LinearLayout>
                         </LinearLayout>

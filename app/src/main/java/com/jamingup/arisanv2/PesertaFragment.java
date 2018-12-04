@@ -217,9 +217,11 @@ public class PesertaFragment extends Fragment {
     private void uploadImage() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.add_image_form, null, false);
         final TextView labelText = (TextView) view.findViewById(R.id.label_text);
-        ImageButton btnTakePhoto = (ImageButton) view.findViewById(R.id.btn_take_photo);
-        ImageButton btnGallery = (ImageButton) view.findViewById(R.id.btn_gallery);
+        Button btnTakePhoto = (Button) view.findViewById(R.id.btn_take_photo);
+        Button btnGallery = (Button) view.findViewById(R.id.btn_gallery);
         labelText.setTypeface(TextMeOneStyle);
+        btnTakePhoto.setTypeface(TextMeOneStyle);
+        btnGallery.setTypeface(TextMeOneStyle);
         final Dialog dialogImageUpload = new Dialog(getContext());
         dialogImageUpload.setContentView(view);
         dialogImageUpload.setCanceledOnTouchOutside(false);

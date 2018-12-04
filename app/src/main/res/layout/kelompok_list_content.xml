@@ -62,9 +62,9 @@
             android:maxLines="1"/>
         <View
             android:layout_marginTop="4dp"
-            android:layout_width="250dp"
+            android:layout_width="224dp"
             android:layout_height="1dp"
-            android:background="@android:color/background_dark"
+            android:background="@android:color/darker_gray"
             />
     </LinearLayout>
 </RelativeLayout>

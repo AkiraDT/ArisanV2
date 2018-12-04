@@ -104,6 +104,7 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
         //add keanggotaan here later
         viewHolder.getTextViewNama().setText(getItem(position).getNama());
         viewHolder.getTextViewNominal().setText("Rp. " + String.valueOf(getItem(position).getNominal()));
+        viewHolder.getBadge().setText( String.valueOf(getItem(position).getJumlahAnggota()));
 
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override
