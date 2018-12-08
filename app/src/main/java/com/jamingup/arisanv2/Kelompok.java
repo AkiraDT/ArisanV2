@@ -12,13 +12,20 @@ public class Kelompok {
     private String nama;
     private int nominal;
     private int jumlahAnggota;
-    @Ignore
-    private Bitmap img;
+    private byte[] img;
 
+    @Ignore
     public Kelompok(String nama, int nominal, int jumlahAnggota){
         this.nama = nama;
         this.nominal = nominal;
         this.jumlahAnggota = jumlahAnggota;
+    }
+
+    public Kelompok(String nama, int nominal, int jumlahAnggota, byte[] img){
+        this.nama = nama;
+        this.nominal = nominal;
+        this.jumlahAnggota = jumlahAnggota;
+        this.img = img;
     }
 
     public void setId(int id) {
@@ -39,7 +46,7 @@ public class Kelompok {
         return jumlahAnggota;
     }
 
-    public Bitmap getImg(){
+    public byte[] getImg(){
         return img;
     }
 

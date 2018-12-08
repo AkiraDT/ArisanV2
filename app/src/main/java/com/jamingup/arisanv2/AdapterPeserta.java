@@ -2,6 +2,8 @@ package com.jamingup.arisanv2;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -102,7 +104,8 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //add keanggotaan here later
         viewHolder.getTextViewNama().setText(getItem(position).getNama());
-//        viewHolder.getImageViewPeserta().setImageBitmap(getItem(position).getImg());
+        Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(), 0, getItem(position).getImg().length);
+        viewHolder.getImageViewPeserta().setImageBitmap(img);
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
@@ -135,7 +138,8 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         namaPeserta.setText(getItem(pos).getNama());
         notelp.setText(getItem(pos).getNoTelp());
         alamat.setText(getItem(pos).getAlamat());
-//        profilePic.setImageBitmap(getItem(pos).getImg());
+        Bitmap img = BitmapFactory.decodeByteArray(getItem(pos).getImg(),0, getItem(pos).getImg().length);
+        profilePic.setImageBitmap(img);
 
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(view);

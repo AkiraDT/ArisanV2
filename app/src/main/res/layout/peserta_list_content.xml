@@ -42,16 +42,17 @@
             android:textSize="12sp"
             android:paddingLeft="20dp"
             android:paddingRight="16dp"
-            android:textColor="#000"
+            android:textColor="@android:color/darker_gray"
             android:gravity="center_vertical"
             android:ellipsize="end"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            />
         <View
             android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="8dp"
-            android:background="@android:color/background_dark"
+            android:background="@android:color/darker_gray"
             />
     </LinearLayout>
 </LinearLayout>

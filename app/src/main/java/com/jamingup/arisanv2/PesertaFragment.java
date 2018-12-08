@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -31,6 +32,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -196,7 +199,7 @@ public class PesertaFragment extends Fragment {
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
                 if(editNamaPeserta.getText().length() != 0 && editNotelp.getText().length() != 0
-                        && editAlamat.getText().length() != 0/* && bmpImage != null*/){
+                        && editAlamat.getText().length() != 0 && bmpImage != null){
                     saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage);
                     dialog.dismiss();
                 }else{
@@ -339,9 +342,17 @@ public class PesertaFragment extends Fragment {
 
     //Uuntuk menyimpan data peserta dan menambahakan ke list
     private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img){
-        pesertaViewModel.insert(new Peserta(nama, noTelp, alamat));
+        byte[] image = bitmapToByteArray(img);
+        pesertaViewModel.insert(new Peserta(nama, noTelp, alamat, image));
         updateRecycler();
         Toast.makeText(getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+    }
+
+    private byte[] bitmapToByteArray(Bitmap img) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        img.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] image = byteArrayOutputStream.toByteArray();
+        return image;
     }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {

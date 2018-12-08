@@ -12,16 +12,16 @@ public class Peserta {
     private String nama;
     private String noTelp;
     private String alamat;
-    @Ignore
-    private Bitmap img;
+    private byte[] img;
 
+    @Ignore
     public Peserta(String nama, String noTelp, String alamat){
         this.nama = nama;
         this.noTelp = noTelp;
         this.alamat = alamat;
     }
 
-    public Peserta(String nama, String noTelp, String alamat, Bitmap img){
+    public Peserta(String nama, String noTelp, String alamat, byte[] img){
         this.nama = nama;
         this.noTelp = noTelp;
         this.alamat = alamat;
@@ -46,7 +46,7 @@ public class Peserta {
         return alamat;
     }
 
-    public Bitmap getImg(){
+    public byte[] getImg(){
         return img;
     }
 

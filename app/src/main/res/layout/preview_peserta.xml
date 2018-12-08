@@ -14,7 +14,6 @@
             android:id="@+id/preview_profile_background"
             android:layout_width="288dp"
             android:layout_height="348dp"
-            app:cardElevation="1dp"
             app:cardCornerRadius="10dp"
             >
 
@@ -31,8 +30,7 @@
             <LinearLayout
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="102dp"
@@ -46,7 +44,8 @@
                     android:text="Hishiro Chihiro"
                     android:gravity="center"
                     android:textSize="20sp"
-                    />
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"/>
                 <TextView
                     android:id="@+id/textview_preview_notelp"
                     android:layout_width="match_parent"
@@ -54,6 +53,8 @@
                     android:text="081572818978"
                     android:gravity="center"
                     android:textSize="12sp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     />
                 <TextView
                     android:id="@+id/textview_preview_screen_alamat"
@@ -63,19 +64,19 @@
                     android:text="Jl. Pegangsaan Timur No.56 Jakarta Selatan"
                     android:gravity="center"
                     android:textSize="16sp"
-                    />
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/dismiss_preview_button"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/close_btn"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:elevation="2dp"
-        />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dismiss_preview_button"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/close_btn"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:elevation="2dp"/>
     </RelativeLayout>
 </RelativeLayout>
