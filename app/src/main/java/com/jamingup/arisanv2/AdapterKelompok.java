@@ -2,6 +2,8 @@ package com.jamingup.arisanv2;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -44,6 +46,7 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
         private final TextView textViewNama;
         private final TextView textViewNominal;
         private final TextView badge;
+        private final CircleImageView kelompokImg;
 
         private ItemClickListener itemClickListener;
         public ViewHolder(View v, Typeface typeface) {
@@ -60,6 +63,8 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
 
             badge = (TextView) v.findViewById(R.id.badge_kelompok);
             badge.setTypeface(typeface);
+
+            kelompokImg = (CircleImageView) v.findViewById(R.id.img_profile_kelompok);
         }
 
         public TextView getTextViewNama() {
@@ -73,6 +78,8 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
         public TextView getBadge() {
             return badge;
         }
+
+        public CircleImageView getProfileKelompok(){ return kelompokImg;}
 
         public void setItemClickListener(ItemClickListener itemClickListener){
             this.itemClickListener = itemClickListener;
@@ -103,8 +110,10 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //add keanggotaan here later
         viewHolder.getTextViewNama().setText(getItem(position).getNama());
-        viewHolder.getTextViewNominal().setText("Rp. " + String.valueOf(getItem(position).getNominal()));
+        viewHolder.getTextViewNominal().setText("Rp. " + String.valueOf(getItem(position).getNominalHadiah()));
         viewHolder.getBadge().setText( String.valueOf(getItem(position).getJumlahAnggota()));
+        Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(),0, getItem(position).getImg().length);
+        viewHolder.getProfileKelompok().setImageBitmap(img);
 
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override

@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-@Database(entities = {Peserta.class, Kelompok.class}, version = 1)
+@Database(entities = {Peserta.class, Kelompok.class}, version = 2)
 public abstract class ArisanDatabase extends RoomDatabase {
 
     private static ArisanDatabase instance;
@@ -47,12 +47,6 @@ public abstract class ArisanDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            pesertaDao.insert(new Peserta("Dennis", "22", "Babakan"));
-            pesertaDao.insert(new Peserta("Akira", "23", "Anjatan"));
-            pesertaDao.insert(new Peserta("Indrawan", "24", "Indramayu"));
-            kelompokDao.insert(new Kelompok("Arisan Barokah", 5000000, 10));
-            kelompokDao.insert(new Kelompok("Arisan Fakir", 12000000, 20));
-            kelompokDao.insert(new Kelompok("Arisan Sultan", 300000000, 30));
             return null;
         }
     }

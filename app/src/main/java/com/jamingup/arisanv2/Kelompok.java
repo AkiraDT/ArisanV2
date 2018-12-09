@@ -10,21 +10,18 @@ public class Kelompok {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String nama;
-    private int nominal;
+    private int nominalHadiah;
+    private String interval;
     private int jumlahAnggota;
+    private int nominalSetoran;
     private byte[] img;
 
-    @Ignore
-    public Kelompok(String nama, int nominal, int jumlahAnggota){
+    public Kelompok(String nama, int nominalHadiah, String interval, byte[] img){
         this.nama = nama;
-        this.nominal = nominal;
-        this.jumlahAnggota = jumlahAnggota;
-    }
-
-    public Kelompok(String nama, int nominal, int jumlahAnggota, byte[] img){
-        this.nama = nama;
-        this.nominal = nominal;
-        this.jumlahAnggota = jumlahAnggota;
+        this.nominalHadiah = nominalHadiah;
+        this.interval = interval;
+        this.jumlahAnggota = 0;
+        this.nominalSetoran = 0;
         this.img = img;
     }
 
@@ -38,8 +35,14 @@ public class Kelompok {
         return nama;
     }
 
-    public int getNominal(){
-        return nominal;
+    public String getInterval(){return interval;}
+
+    public int getNominalHadiah(){
+        return nominalHadiah;
+    }
+
+    public int getNominalSetoran(){
+        return nominalSetoran;
     }
 
     public int getJumlahAnggota(){
@@ -50,4 +53,11 @@ public class Kelompok {
         return img;
     }
 
+    public void setJumlahAnggota(int jumlahAnggota) {
+        this.jumlahAnggota = jumlahAnggota;
+    }
+
+    public void setNominalSetoran(int nominalSetoran) {
+        this.nominalSetoran = nominalSetoran;
+    }
 }

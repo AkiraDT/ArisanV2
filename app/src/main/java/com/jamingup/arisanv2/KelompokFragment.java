@@ -28,6 +28,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -149,7 +151,7 @@ public class KelompokFragment extends Fragment {
 //    }
 
     private void addKelompok(){
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.add_kelompok_form, null, false);
+        final View view = LayoutInflater.from(getContext()).inflate(R.layout.add_kelompok_form, null, false);
         final TextView namaKelompok = (TextView) view.findViewById(R.id.label_name);
         final TextView nominal = (TextView) view.findViewById(R.id.label_nominal);
         final TextView interval = (TextView) view.findViewById(R.id.label_interval);
@@ -158,7 +160,7 @@ public class KelompokFragment extends Fragment {
         Button acceptButton = (Button) view.findViewById(R.id.accept_button);
         final EditText editNamaKelompok = (EditText) view.findViewById(R.id.add_nama);
         final EditText editNominal = (EditText) view.findViewById(R.id.add_nominal);
-        final EditText editInterval = (EditText) view.findViewById(R.id.add_interval);
+        final RadioGroup intervalGroup = (RadioGroup) view.findViewById(R.id.add_interval);
         imgThumbnail = (CircleImageView) view.findViewById(R.id.img_profile);
 
         namaKelompok.setTypeface(TextMeOneStyle);
@@ -167,7 +169,7 @@ public class KelompokFragment extends Fragment {
         currency.setTypeface(TextMeOneStyle);
         editNamaKelompok.setTypeface(TextMeOneStyle);
         editNominal.setTypeface(TextMeOneStyle);
-        editInterval.setTypeface(TextMeOneStyle);
+
         cancelButton.setTypeface(TextMeOneStyle);
         acceptButton.setTypeface(TextMeOneStyle);
         bmpImage = null;
@@ -183,8 +185,7 @@ public class KelompokFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //mengecek apakah data sudah ada yang diisi
-                if(editNamaKelompok.getText().length() != 0 || editNominal.getText().length() != 0
-                        || editInterval.getText().length() != 0){
+                if(editNamaKelompok.getText().length() != 0 || editNominal.getText().length() != 0){
                     discardConfirmation(dialog);
                 }
                 else{
@@ -199,8 +200,9 @@ public class KelompokFragment extends Fragment {
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
                 if(editNamaKelompok.getText().length() != 0 && editNominal.getText().length() != 0
-                        && editInterval.getText().length() != 0 && bmpImage != null){
-                    saveDataKelompok(editNamaKelompok.getText().toString(), Integer.parseInt(editNominal.getText().toString()), Integer.parseInt(editInterval.getText().toString()), bmpImage);
+                        && bmpImage != null){
+                    RadioButton radioButton = view.findViewById(intervalGroup.getCheckedRadioButtonId());
+                    saveDataKelompok(editNamaKelompok.getText().toString(), Integer.parseInt(editNominal.getText().toString()), radioButton.getText().toString(), bmpImage);
                     dialog.dismiss();
                 }else{
                     Toast.makeText(getContext(), "Data harus terisi Semua", Toast.LENGTH_SHORT).show();
@@ -340,7 +342,7 @@ public class KelompokFragment extends Fragment {
     }
 
 //    //Uuntuk menyimpan data peserta dan menambahakan ke list
-    private void saveDataKelompok(String nama, int nominal, int interval, Bitmap img){
+    private void saveDataKelompok(String nama, int nominal, String interval, Bitmap img){
         byte[] image = bitmapToByteArray(img);
         kelompokViewModel.insert(new Kelompok(nama, nominal, interval, image));
         updateRecycler();

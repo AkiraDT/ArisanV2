@@ -136,7 +136,7 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         alamat.setTypeface(TextMeOneStyle);
 
         namaPeserta.setText(getItem(pos).getNama());
-        notelp.setText(getItem(pos).getNoTelp());
+        notelp.setText("+62" + getItem(pos).getNoTelp());
         alamat.setText(getItem(pos).getAlamat());
         Bitmap img = BitmapFactory.decodeByteArray(getItem(pos).getImg(),0, getItem(pos).getImg().length);
         profilePic.setImageBitmap(img);
