@@ -18,12 +18,12 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/close_btn"
+            android:src="@drawable/btn_info"
             android:clickable="true"
             android:focusable="true"
             android:onClick="closeDialog"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            />
+            android:elevation="2dp"/>
     </RelativeLayout>
 </RelativeLayout>

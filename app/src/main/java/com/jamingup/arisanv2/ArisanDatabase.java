@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-@Database(entities = {Peserta.class, Kelompok.class}, version = 2)
+@Database(entities = {Peserta.class, Kelompok.class}, version = 1)
 public abstract class ArisanDatabase extends RoomDatabase {
 
     private static ArisanDatabase instance;

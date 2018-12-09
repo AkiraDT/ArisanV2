@@ -7,7 +7,7 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="380dp"
+        android:layout_height="384dp"
         android:layout_centerHorizontal="true">
 
         <android.support.v7.widget.CardView
@@ -72,11 +72,12 @@
             android:id="@+id/dismiss_preview_button"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/close_btn"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/btn_info"
             android:clickable="true"
             android:focusable="true"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:elevation="2dp"/>
+            android:elevation="3dp"/>
     </RelativeLayout>
 </RelativeLayout>

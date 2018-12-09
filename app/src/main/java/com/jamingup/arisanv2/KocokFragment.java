@@ -1,6 +1,7 @@
 package com.jamingup.arisanv2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,9 @@ public class KocokFragment extends Fragment {
         btnShake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), KelompokViewActivity.class);
+                startActivity(intent);
+//                Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
             }
         });
 

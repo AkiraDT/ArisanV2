@@ -48,7 +48,6 @@ public class PesertaFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private AdapterPeserta mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ImageButton bigAddButton;
     private FloatingActionButton fab;
     private Typeface TextMeOneStyle;
     private CircleImageView imgThumbnail;
@@ -80,17 +79,10 @@ public class PesertaFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_peserta, container, false);
 
-        bigAddButton = (ImageButton) view.findViewById(R.id.button_add_peserta_empty);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addPeserta();
-            }
-        });
-        bigAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 addPeserta();
             }
         });
@@ -131,21 +123,8 @@ public class PesertaFragment extends Fragment {
                 Toast.makeText(getContext(),mAdapter.getPesertaAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(mRecyclerView);
-        dataCheck();
         updateRecycler();
         return view;
-    }
-
-    void dataCheck(){
-        if(pesertaViewModel.getAllPeserta() == null){
-            fab.hide();
-            mRecyclerView.setVisibility(View.GONE);
-            bigAddButton.setVisibility(View.VISIBLE);
-        }else{
-            fab.show();
-            mRecyclerView.setVisibility(View.VISIBLE);
-            bigAddButton.setVisibility(View.GONE);
-        }
     }
 
     private void addPeserta(){

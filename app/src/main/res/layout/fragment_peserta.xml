@@ -23,19 +23,11 @@
             app:fabSize="normal"
             app:maxImageSize="@android:dimen/app_icon_size"
             android:src="@drawable/button"
-            app:elevation="10dp"
+            app:elevation="3dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             />
-
-    <ImageButton
-        android:id="@+id/button_add_peserta_empty"
-        android:layout_centerInParent="true"
-        android:layout_width="224dp"
-        android:layout_height="224dp"
-        android:background="@drawable/addbtn_empty_page"
-        />
 
 </RelativeLayout>

@@ -42,33 +42,32 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction()
                             .replace(R.id.mainContent, pesertaFrag)
                             .commit();
-                    setTitle("Peserta Arisan");
+                    toolbarText.setText("Peserta Arisan");
                     return true;
                 case R.id.navigation_kelompok:
                     fragmentManager.beginTransaction()
                             .replace(R.id.mainContent, kelompokFrag)
                             .commit();
-                    setTitle("Kelompok Arisan");
+                    toolbarText.setText("Kelompok Arisan");
                     return true;
                 case R.id.navigation_tagihan:
                     fragmentManager.beginTransaction()
                             .replace(R.id.mainContent, tagihanFrag)
                             .commit();
-                    setTitle("Tagihan Arisan");
+                    toolbarText.setText("Tagihan Arisan");
                     return true;
                 case R.id.navigation_kocok:
                     fragmentManager.beginTransaction()
                             .replace(R.id.mainContent, kocokFrag)
                             .commit();
-                    setTitle("Kocok Arisan");
+                    toolbarText.setText("Kocok Arisan");
                     return true;
-                /*case R.id.navigation_pemenang:
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.content, pilihKelompokPemenangFrag)
-                            .commit();
-                    setTitle("Pemenang Arisan");
+                case R.id.navigation_pemenang:
+//                    fragmentManager.beginTransaction()
+//                            .replace(R.id.content, pilihKelompokPemenangFrag)
+//                            .commit();
+                    toolbarText.setText("Pemenang Arisan");
                     return true;
-                    */
             }
             return false;
         }
@@ -113,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, displayMetrics);
                 layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, displayMetrics);
             }
+            toolbarText.setText("Peserta Arisan");
 
             iconView.setLayoutParams(layoutParams);
         }
