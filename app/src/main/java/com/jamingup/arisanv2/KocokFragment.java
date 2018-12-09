@@ -30,9 +30,7 @@ public class KocokFragment extends Fragment {
         btnShake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), KelompokViewActivity.class);
-                startActivity(intent);
-//                Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
             }
         });
 

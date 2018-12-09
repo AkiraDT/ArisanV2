@@ -119,8 +119,8 @@ public class KelompokFragment extends Fragment {
 //        });
 
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
@@ -129,28 +129,15 @@ public class KelompokFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 kelompokViewModel.delete(mAdapter.getKelompokAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getContext(),mAdapter.getKelompokAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), mAdapter.getKelompokAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(mRecyclerView);
 
-//        dataCheck();
         updateRecycler();
         return view;
     }
 
-//    void dataCheck(){
-//        if(pesertaViewModel.getAllPeserta() == null){
-//            fab.hide();
-//            mRecyclerView.setVisibility(View.GONE);
-//            bigAddButton.setVisibility(View.VISIBLE);
-//        }else{
-//            fab.show();
-//            mRecyclerView.setVisibility(View.VISIBLE);
-//            bigAddButton.setVisibility(View.GONE);
-//        }
-//    }
-
-    private void addKelompok(){
+    private void addKelompok() {
         final View view = LayoutInflater.from(getContext()).inflate(R.layout.add_kelompok_form, null, false);
         final TextView namaKelompok = (TextView) view.findViewById(R.id.label_name);
         final TextView nominal = (TextView) view.findViewById(R.id.label_nominal);
@@ -185,11 +172,10 @@ public class KelompokFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //mengecek apakah data sudah ada yang diisi
-                if(editNamaKelompok.getText().length() != 0 || editNominal.getText().length() != 0){
+                if (editNamaKelompok.getText().length() != 0 || editNominal.getText().length() != 0) {
                     discardConfirmation(dialog);
-                }
-                else{
-                   dialog.dismiss();
+                } else {
+                    dialog.dismiss();
                 }
             }
         });
@@ -199,12 +185,17 @@ public class KelompokFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
-                if(editNamaKelompok.getText().length() != 0 && editNominal.getText().length() != 0
-                        && bmpImage != null){
-                    RadioButton radioButton = view.findViewById(intervalGroup.getCheckedRadioButtonId());
-                    saveDataKelompok(editNamaKelompok.getText().toString(), Integer.parseInt(editNominal.getText().toString()), radioButton.getText().toString(), bmpImage);
-                    dialog.dismiss();
-                }else{
+                if (editNamaKelompok.getText().length() != 0 && editNominal.getText().length() != 0
+                        && bmpImage != null) {
+                    double nominal = Double.parseDouble(editNominal.getText().toString());
+                    if(nominal <= 100000000) {
+                        RadioButton radioButton = view.findViewById(intervalGroup.getCheckedRadioButtonId());
+                        saveDataKelompok(editNamaKelompok.getText().toString(), Integer.parseInt(editNominal.getText().toString()), radioButton.getText().toString(), bmpImage);
+                        dialog.dismiss();
+                    }else {
+                        Toast.makeText(getContext(), "Maksimal Hadiah 100jt", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
                     Toast.makeText(getContext(), "Data harus terisi Semua", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -241,7 +232,8 @@ public class KelompokFragment extends Fragment {
             }
         });
     }
-    void discardConfirmation(final Dialog dialog){
+
+    void discardConfirmation(final Dialog dialog) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Anda yakin ingin membatalkan aksi");
         builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
@@ -274,17 +266,17 @@ public class KelompokFragment extends Fragment {
     private void openImage() {
     }
 
-    public void onTakePhotoClicked(){
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+    public void onTakePhotoClicked() {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             //Toast.makeText(getContext(),"Permission Already granted", Toast.LENGTH_SHORT).show();
             invokeCamera();
-        }else {
+        } else {
             requestCameraPermission();
         }
     }
 
-    private void requestCameraPermission(){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)){
+    private void requestCameraPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
             new AlertDialog.Builder(getContext())
                     .setTitle("Permission needed")
                     .setMessage("This permission is needed")
@@ -301,7 +293,7 @@ public class KelompokFragment extends Fragment {
                         }
                     })
                     .create().show();
-        }else{
+        } else {
             requestPermissions(permissionRequest, CAMERA_PERMISSION_REQUEST_CODE);
         }
     }
@@ -309,19 +301,19 @@ public class KelompokFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == CAMERA_PERMISSION_REQUEST_CODE){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 invokeCamera();
                 //Toast.makeText(getContext(),"Permission Granted", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(getContext(),"Can't take photo without permission", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Can't take photo without permission", Toast.LENGTH_SHORT).show();
             }
-        }else{
-            Toast.makeText(getContext(), "Gagal",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Gagal", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void invokeCamera(){
+    private void invokeCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
     }
@@ -329,11 +321,11 @@ public class KelompokFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            if(requestCode == CAMERA_REQUEST_CODE){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST_CODE) {
                 Object returnedObject = data.getExtras().get("data");
 
-                if(returnedObject instanceof Bitmap){
+                if (returnedObject instanceof Bitmap) {
                     bmpImage = (Bitmap) returnedObject;
                     imgThumbnail.setImageBitmap(bmpImage);
                 }
@@ -341,8 +333,8 @@ public class KelompokFragment extends Fragment {
         }
     }
 
-//    //Uuntuk menyimpan data peserta dan menambahakan ke list
-    private void saveDataKelompok(String nama, int nominal, String interval, Bitmap img){
+    //    //Uuntuk menyimpan data peserta dan menambahakan ke list
+    private void saveDataKelompok(String nama, int nominal, String interval, Bitmap img) {
         byte[] image = bitmapToByteArray(img);
         kelompokViewModel.insert(new Kelompok(nama, nominal, interval, image));
         updateRecycler();

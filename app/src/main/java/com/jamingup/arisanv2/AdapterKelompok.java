@@ -2,6 +2,7 @@ package com.jamingup.arisanv2;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -110,9 +111,10 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //add keanggotaan here later
         viewHolder.getTextViewNama().setText(getItem(position).getNama());
-        viewHolder.getTextViewNominal().setText("Rp. " + String.valueOf(getItem(position).getNominalHadiah()));
+        String nominal = String.format("%,.2f", Double.parseDouble(String.valueOf(getItem(position).getNominalHadiah())));
+        viewHolder.getTextViewNominal().setText("Rp. " + nominal);
         viewHolder.getBadge().setText( String.valueOf(getItem(position).getJumlahAnggota()));
-        Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(),0, getItem(position).getImg().length);
+        final Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(),0, getItem(position).getImg().length);
         viewHolder.getProfileKelompok().setImageBitmap(img);
 
         viewHolder.setItemClickListener(new ItemClickListener() {
@@ -123,6 +125,12 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
                 }else{
 //                    previewKelompok(position);
                     Toast.makeText(context, "click "+ "Bisa", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, KelompokViewActivity.class);
+                    intent.putExtra("nama", getItem(position).getNama());
+                    intent.putExtra("jumlah", getItem(position).getJumlahAnggota());
+                    intent.putExtra("hadiah", getItem(position).getNominalHadiah());
+                    intent.putExtra("img", getItem(position).getImg());
+                    context.startActivity(intent);
                 }
             }
         });
@@ -132,34 +140,4 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
         return getItem(pos);
     }
 
-//    private void previewKelompok(int pos){
-//        View view = LayoutInflater.from(context).inflate(R.layout.preview_peserta, null, false);
-//        final TextView namaPeserta = (TextView) view.findViewById(R.id.textview_preview_nama_peserta);
-//        final TextView notelp = (TextView) view.findViewById(R.id.textview_preview_notelp);
-//        final TextView alamat = (TextView) view.findViewById(R.id.textview_preview_screen_alamat);
-//        CircleImageView button = (CircleImageView) view.findViewById(R.id.dismiss_preview_button);
-//        CircleImageView profilePic = (CircleImageView) view.findViewById(R.id.img_profile);
-//
-//        namaPeserta.setTypeface(TextMeOneStyle);
-//        notelp.setTypeface(TextMeOneStyle);
-//        alamat.setTypeface(TextMeOneStyle);
-//
-//        namaPeserta.setText(getItem(pos).getNama());
-//        notelp.setText(getItem(pos).getNoTelp());
-//        alamat.setText(getItem(pos).getAlamat());
-////        profilePic.setImageBitmap(getItem(pos).getImg());
-//
-//        final Dialog dialog = new Dialog(context);
-//        dialog.setContentView(view);
-//        dialog.setCanceledOnTouchOutside(false);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        dialog.show();
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//    }
 }
