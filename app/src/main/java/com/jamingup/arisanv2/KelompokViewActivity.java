@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -24,6 +25,9 @@ public class KelompokViewActivity extends AppCompatActivity {
     private ImageView imgKelompok;
 
     private KelompokViewModel kelompokViewModel;
+
+    private FragmentManager fragmentManager;
+    private KelompokFragment kl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,12 @@ public class KelompokViewActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        kl = new KelompokFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.anggotaFrame , kl)
+                .commit();
     }
 
 }

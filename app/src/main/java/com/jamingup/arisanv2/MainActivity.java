@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         tagihanFrag = new BlankFragment();
         kocokFrag = new KocokFragment();
 
+
         fragmentManager.beginTransaction()
                 .add(R.id.mainContent , pesertaFrag)
                 .commit();
@@ -95,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         toolbarSetting();
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+        if (savedInstanceState != null)
+            navigation.setSelectedItemId(savedInstanceState.getInt("idNav"));
         for (int i = 0; i < menuView.getChildCount(); i++) {
             final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
@@ -151,4 +154,14 @@ public class MainActivity extends AppCompatActivity {
     public void closeDialog(View view) {
         dialog.dismiss();
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle currentState) {
+        super.onSaveInstanceState(currentState);
+        //        if(mTwopane)
+//            currentState.putString("judul", textJudul.getText().toString());
+//        else
+        currentState.putInt("idNav", navigation.getSelectedItemId());
+    }
+
 }
