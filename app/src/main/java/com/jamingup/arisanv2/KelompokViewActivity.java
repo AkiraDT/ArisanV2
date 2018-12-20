@@ -27,7 +27,7 @@ public class KelompokViewActivity extends AppCompatActivity {
     private KelompokViewModel kelompokViewModel;
 
     private FragmentManager fragmentManager;
-    private KelompokFragment kl;
+    private AnggotaFragment kl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class KelompokViewActivity extends AppCompatActivity {
         final Bitmap img = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("img"), 0, getIntent().getByteArrayExtra("img").length);
         labelNama.setText(getIntent().getStringExtra("nama"));
         double hadiah = Double.parseDouble(String.valueOf(getIntent().getIntExtra("hadiah", 0)));
-        labelNominalHadiah.setText("Rp. "+ String.format("%,.2f",hadiah));
+        labelNominalHadiah.setText("Rp. " + String.format("%,.2f", hadiah));
         labelJumlahAnggota.setText(String.valueOf(getIntent().getIntExtra("jumlah", 0)) + " Anggota");
         imgKelompok.setImageBitmap(img);
 
@@ -66,11 +66,18 @@ public class KelompokViewActivity extends AppCompatActivity {
             }
         });
 
-        kl = new KelompokFragment();
+        kl = new AnggotaFragment();
         fragmentManager = getSupportFragmentManager();
+
         fragmentManager.beginTransaction()
-                .add(R.id.anggotaFrame , kl)
+                .add(R.id.anggotaFrame, kl)
                 .commit();
+
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
 }

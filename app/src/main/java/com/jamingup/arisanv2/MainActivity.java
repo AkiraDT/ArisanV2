@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private PesertaFragment pesertaFrag;
     private KelompokFragment kelompokFrag;
-    private BlankFragment tagihanFrag;
+    private AnggotaFragment tagihanFrag;
     private KocokFragment kocokFrag;
 
     private Dialog dialog;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         pesertaFrag = new PesertaFragment();
         kelompokFrag = new KelompokFragment();
-        tagihanFrag = new BlankFragment();
+        tagihanFrag = new AnggotaFragment();
         kocokFrag = new KocokFragment();
 
 

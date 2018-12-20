@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+
+    android:layout_marginTop="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_profile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/tumblr_opq5t2c3pd1qbytw2o4_r1_5401" />
+
+    <TextView
+        android:id="@+id/textView_anggota_list_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Hishiro Cihiro"
+        android:textColor="#FFF"
+        android:textSize="8sp" />
+</RelativeLayout>
