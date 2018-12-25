@@ -33,6 +33,10 @@ public class PesertaViewModel extends AndroidViewModel {
         repository.deleteAllPeserta();
     };
 
+    public LiveData<List<Peserta>> getPesertaWithoutKelompok(String namaKelompok){
+        return repository.getPesertaWithoutKelompok(namaKelompok);
+    }
+
     public LiveData<List<Peserta>> getAllPeserta() {
         return allPeserta;
     }

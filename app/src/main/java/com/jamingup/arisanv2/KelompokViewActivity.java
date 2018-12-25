@@ -57,17 +57,13 @@ public class KelompokViewActivity extends AppCompatActivity {
         labelJumlahAnggota.setText(String.valueOf(getIntent().getIntExtra("jumlah", 0)) + " Anggota");
         imgKelompok.setImageBitmap(img);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         kl = new AnggotaFragment();
         fragmentManager = getSupportFragmentManager();
+
+        Bundle b = new Bundle();
+        b.putString("namaKelompok",getIntent().getStringExtra("nama"));
+
+        kl.setArguments(b);
 
         fragmentManager.beginTransaction()
                 .add(R.id.anggotaFrame, kl)

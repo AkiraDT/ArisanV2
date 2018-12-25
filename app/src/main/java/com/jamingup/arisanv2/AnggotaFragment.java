@@ -5,17 +5,17 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
-
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 
 public class AnggotaFragment extends Fragment {
@@ -24,24 +24,27 @@ public class AnggotaFragment extends Fragment {
     private AdapterAnggota mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Typeface TextMeOneStyle;
+    private String namaKelompok;
 
-    private PesertaViewModel pesertaViewModel;
-
+    private AnggotaViewModel anggotaViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
+
+        Bundle b = getArguments();
+        namaKelompok = b.getString("namaKelompok");
+        anggotaViewModel = ViewModelProviders.of(this, new AnggotaViewModelFactory(getActivity().getApplication(), namaKelompok)).get(AnggotaViewModel.class);
         updateRecycler();
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
     }
 
     private void updateRecycler() {
-        pesertaViewModel.getAllPeserta().observe(this, new Observer<List<Peserta>>() {
+        anggotaViewModel.getAllAnggota().observe(this, new Observer<List<Anggota>>() {
             @Override
-            public void onChanged(@Nullable List<Peserta> pesertas) {
+            public void onChanged(@Nullable List<Anggota> anggotas) {
                 //update RecyclerView
-                mAdapter.submitList(pesertas);
+                mAdapter.submitList(anggotas);
             }
         });
     }
@@ -63,6 +66,14 @@ public class AnggotaFragment extends Fragment {
         // specify an adapter (see also next example)
         mAdapter = new AdapterAnggota(TextMeOneStyle, getContext());
         mRecyclerView.setAdapter(mAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Masih nyoba", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

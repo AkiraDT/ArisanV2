@@ -161,17 +161,5 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/button"
-            app:elevation="10dp"
-            app:fabSize="normal"
-            app:maxImageSize="@android:dimen/app_icon_size" />
     </RelativeLayout>
 </LinearLayout>

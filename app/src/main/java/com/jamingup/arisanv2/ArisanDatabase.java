@@ -9,13 +9,14 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-@Database(entities = {Peserta.class, Kelompok.class}, version = 1)
+@Database(entities = {Peserta.class, Kelompok.class, Anggota.class}, version = 2)
 public abstract class ArisanDatabase extends RoomDatabase {
 
     private static ArisanDatabase instance;
 
     public abstract PesertaDao pesertaDao();
     public abstract KelompokDao kelompokDao();
+    public abstract AnggotaDao anggotaDao();
 
     public static synchronized ArisanDatabase getInstance(Context context){
         if(instance == null){
@@ -37,16 +38,14 @@ public abstract class ArisanDatabase extends RoomDatabase {
     };
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void>{
-        private PesertaDao pesertaDao;
-        private KelompokDao kelompokDao;
-
+        private AnggotaDao anggotaDao;
         private PopulateDbAsyncTask(ArisanDatabase db){
-            this.pesertaDao = db.pesertaDao();
-            this.kelompokDao = db.kelompokDao();
+            anggotaDao = db.anggotaDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
+            anggotaDao.insert(new Anggota("Mahmud", "Arisan Jamming"));
             return null;
         }
     }

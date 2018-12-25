@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHolder> {
+public class AdapterAnggota extends ListAdapter<Anggota, AdapterAnggota.ViewHolder> {
     private static final String TAG = "AdapterAnggota";
     private Context context;
     private Typeface TextMeOneStyle;
@@ -30,15 +30,15 @@ public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHold
         this.context = context;
     }
 
-    private static final DiffUtil.ItemCallback<Peserta> DIFF_CALLBACK = new DiffUtil.ItemCallback<Peserta>() {
+    private static final DiffUtil.ItemCallback<Anggota> DIFF_CALLBACK = new DiffUtil.ItemCallback<Anggota>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Peserta pesertaData, @NonNull Peserta newPesertaData) {
-            return pesertaData.getId() == newPesertaData.getId();
+        public boolean areItemsTheSame(@NonNull Anggota anggotaData, @NonNull Anggota newAnggotaData) {
+            return anggotaData.getId() == newAnggotaData.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Peserta pesertaData, @NonNull Peserta newPesertaData) {
-            return pesertaData.getNama().equals(newPesertaData.getNama());
+        public boolean areContentsTheSame(@NonNull Anggota anggotaData, @NonNull Anggota newAnggotaData) {
+            return anggotaData.getNamaP().equals(newAnggotaData.getNamaP());
         }
     };
 
@@ -95,9 +95,9 @@ public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //add keanggotaan here later
-        viewHolder.getTextViewNama().setText(getItem(position).getNama());
-        Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(), 0, getItem(position).getImg().length);
-        viewHolder.getImageViewPeserta().setImageBitmap(img);
+        viewHolder.getTextViewNama().setText(getItem(position).getNamaP());
+        //Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(), 0, getItem(position).getImg().length);
+        //viewHolder.getImageViewPeserta().setImageBitmap(img);
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
@@ -111,7 +111,7 @@ public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHold
         });
     }
 
-    public Peserta getPesertaAt(int pos){
+    public Anggota getAnggotaAt(int pos){
         return getItem(pos);
     }
 
@@ -127,8 +127,8 @@ public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHold
 //        notelp.setTypeface(TextMeOneStyle);
 //        alamat.setTypeface(TextMeOneStyle);
 //
-//        namaPeserta.setText(getItem(pos).getNama());
-//        notelp.setText("+62" + getItem(pos).getNoTelp());
+//        namaPeserta.setText(getItem(pos).getNamaP());
+//        notelp.setText("+62" + getItem(pos).getNamaK());
 //        alamat.setText(getItem(pos).getAlamat());
 //        Bitmap img = BitmapFactory.decodeByteArray(getItem(pos).getImg(),0, getItem(pos).getImg().length);
 //        profilePic.setImageBitmap(img);

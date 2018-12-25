@@ -36,6 +36,10 @@ public class PesertaRepository {
         return allPeserta;
     }
 
+    public LiveData<List<Peserta>> getPesertaWithoutKelompok(String namaKelompok){
+        return pesertaDao.getPesertaWithoutKelompok(namaKelompok);
+    }
+
     private static class InsertPesertaAsyncTask extends AsyncTask<Peserta, Void, Void>{
         private PesertaDao pesertaDao;
 
