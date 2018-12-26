@@ -1,19 +1,20 @@
 package com.jamingup.arisanv2;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -71,14 +72,22 @@ public class AnggotaFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Masih nyoba", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Masih nyoba", Toast.LENGTH_SHORT).show();
+                addAnggota();
             }
         });
 
         return view;
     }
 
+    private void addAnggota(){
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_pilih_anggota, null, false);
 
-
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
 
 }
