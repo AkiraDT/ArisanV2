@@ -1,6 +1,5 @@
 package com.jamingup.arisanv2;
 
-import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -23,7 +22,9 @@ public class KelompokViewActivity extends AppCompatActivity {
     private KelompokViewModel kelompokViewModel;
 
     private FragmentManager fragmentManager;
-    private AnggotaFragment kl;
+    private AnggotaFragment anggotaFragment;
+//    private PilihAnggotaFragment pilihAnggotaFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +54,18 @@ public class KelompokViewActivity extends AppCompatActivity {
         labelJumlahAnggota.setText(String.valueOf(getIntent().getIntExtra("jumlah", 0)) + " Anggota");
         imgKelompok.setImageBitmap(img);
 
-        kl = new AnggotaFragment();
+        anggotaFragment = new AnggotaFragment();
+//        pilihAnggotaFragment = new PilihAnggotaFragment();
         fragmentManager = getSupportFragmentManager();
 
         Bundle b = new Bundle();
         b.putString("namaKelompok",getIntent().getStringExtra("nama"));
 
-        kl.setArguments(b);
+        anggotaFragment.setArguments(b);
+//        pilihAnggotaFragment.setArguments(b);
 
         fragmentManager.beginTransaction()
-                .add(R.id.anggotaFrame, kl)
+                .add(R.id.anggotaFrame, anggotaFragment)
                 .commit();
 
     }

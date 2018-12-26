@@ -37,7 +37,8 @@ public class PesertaRepository {
     }
 
     public LiveData<List<Peserta>> getPesertaWithoutKelompok(String namaKelompok){
-        return pesertaDao.getPesertaWithoutKelompok(namaKelompok);
+        LiveData<List<Peserta>> peserta = pesertaDao.getPesertaWithoutKelompok(namaKelompok);
+        return peserta;
     }
 
     private static class InsertPesertaAsyncTask extends AsyncTask<Peserta, Void, Void>{

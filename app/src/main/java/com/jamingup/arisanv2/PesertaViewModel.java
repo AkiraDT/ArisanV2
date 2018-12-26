@@ -34,7 +34,8 @@ public class PesertaViewModel extends AndroidViewModel {
     };
 
     public LiveData<List<Peserta>> getPesertaWithoutKelompok(String namaKelompok){
-        return repository.getPesertaWithoutKelompok(namaKelompok);
+        LiveData<List<Peserta>> peserta = repository.getPesertaWithoutKelompok(namaKelompok);
+        return peserta;
     }
 
     public LiveData<List<Peserta>> getAllPeserta() {

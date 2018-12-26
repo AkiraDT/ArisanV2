@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +28,9 @@ public class AnggotaFragment extends Fragment {
     private Typeface TextMeOneStyle;
     private String namaKelompok;
 
+    private FragmentManager fragmentManager;
+    private PilihAnggotaFragment pilihAnggotaFragment;
+
     private AnggotaViewModel anggotaViewModel;
 
     @Override
@@ -38,6 +42,11 @@ public class AnggotaFragment extends Fragment {
         anggotaViewModel = ViewModelProviders.of(this, new AnggotaViewModelFactory(getActivity().getApplication(), namaKelompok)).get(AnggotaViewModel.class);
         updateRecycler();
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
+
+
+        pilihAnggotaFragment = new PilihAnggotaFragment();
+        fragmentManager = getActivity().getSupportFragmentManager();
+        pilihAnggotaFragment.setArguments(b);
     }
 
     private void updateRecycler() {
@@ -73,21 +82,11 @@ public class AnggotaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(getContext(), "Masih nyoba", Toast.LENGTH_SHORT).show();
-                addAnggota();
+                pilihAnggotaFragment.show(fragmentManager, "Anggota "+ namaKelompok);
             }
         });
 
         return view;
-    }
-
-    private void addAnggota(){
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_pilih_anggota, null, false);
-
-        final Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(view);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
     }
 
 }

@@ -27,6 +27,6 @@ public interface PesertaDao {
     @Query("SELECT * FROM peserta_table ORDER BY nama ASC")
     LiveData<List<Peserta>> getAllPeserta();
 
-    @Query("SELECT * FROM PESERTA_TABLE INNER JOIN ANGGOTA_TABLE ON namaK NOT LIKE :namaKelompok ")
+    @Query("SELECT * FROM PESERTA_TABLE LEFT JOIN ANGGOTA_TABLE ON ANGGOTA_TABLE.namaK NOT LIKE :namaKelompok ")
     LiveData<List<Peserta>> getPesertaWithoutKelompok(String namaKelompok);
 }
