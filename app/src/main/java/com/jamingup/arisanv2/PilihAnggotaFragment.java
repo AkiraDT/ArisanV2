@@ -28,6 +28,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +53,9 @@ public class PilihAnggotaFragment extends DialogFragment {
 
     private PesertaViewModel pesertaViewModel;
     private String namaKelompok;
+    private boolean allChecked;
+
+    private Button btn_simpanAnggota;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +65,7 @@ public class PilihAnggotaFragment extends DialogFragment {
         pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
         updateRecycler();
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
+        allChecked = false;
     }
 
     private void updateRecycler() {
@@ -79,6 +85,26 @@ public class PilihAnggotaFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pilih_anggota, container, false);
 
+        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox_allCheck);
+
+        TextView labelPilihSemua = (TextView) view.findViewById(R.id.label_pilihSemua);
+        labelPilihSemua.setTypeface(TextMeOneStyle);
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                allChecked = isChecked;
+            }
+        });
+
+        labelPilihSemua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allChecked = !allChecked;
+                checkBox.setChecked(allChecked);
+            }
+        });
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_pilihAnggota);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -91,32 +117,33 @@ public class PilihAnggotaFragment extends DialogFragment {
         mAdapter = new AdapterPilihAnggota(TextMeOneStyle, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
-//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
+//                ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
 //            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
-//                    fab.hide();
-//                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
-//                    fab.show();
-//                }
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+//                return false;
 //            }
-//        });
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                pesertaViewModel.delete(mAdapter.getPesertaAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getContext(),mAdapter.getPesertaAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(mRecyclerView);
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+//                pesertaViewModel.delete(mAdapter.getPesertaAt(viewHolder.getAdapterPosition()));
+//                Toast.makeText(getContext(),mAdapter.getPesertaAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
+//            }
+//        }).attachToRecyclerView(mRecyclerView);
         updateRecycler();
+
+        btn_simpanAnggota = (Button)view.findViewById(R.id.btn_simpanAnggota);
+        btn_simpanAnggota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mAdapter.getCheckedItemList().isEmpty()){
+                    Toast.makeText(getContext(), "Belum ada yang terpilih", Toast.LENGTH_SHORT).show();
+                }else {
+                    String cth = mAdapter.getPesertaAt(mAdapter.getCheckedItemList().get(0)).getNama();
+                    Toast.makeText(getContext(), "Ada si "+cth, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return view;
     }
 

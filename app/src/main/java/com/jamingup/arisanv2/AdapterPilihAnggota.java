@@ -14,8 +14,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -23,11 +28,14 @@ public class AdapterPilihAnggota extends ListAdapter<Peserta, AdapterPilihAnggot
     private static final String TAG = "AdapterPilihAnggota";
     private Context context;
     private Typeface TextMeOneStyle;
+    private Boolean allChecked;
+    private List<Integer> checkedItemList;
 
     public AdapterPilihAnggota(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
         TextMeOneStyle = typeface;
         this.context = context;
+        checkedItemList = new ArrayList<>();
     }
 
     private static final DiffUtil.ItemCallback<Peserta> DIFF_CALLBACK = new DiffUtil.ItemCallback<Peserta>() {
@@ -46,6 +54,8 @@ public class AdapterPilihAnggota extends ListAdapter<Peserta, AdapterPilihAnggot
         private final TextView textViewNama;
         private final TextView textViewKelompok;
         private final CircleImageView imageViewPeserta;
+        private final CheckBox checkBox;
+        private boolean checkStatus = false;
 
         private ItemClickListener itemClickListener;
         public ViewHolder(View v, Typeface typeface) {
@@ -61,6 +71,9 @@ public class AdapterPilihAnggota extends ListAdapter<Peserta, AdapterPilihAnggot
             textViewKelompok.setTypeface(typeface);
 
             imageViewPeserta = (CircleImageView) v.findViewById(R.id.img_profile);
+
+            checkBox = (CheckBox) v.findViewById(R.id.checkAnggota);
+            checkBox.setClickable(false);
         }
 
         public TextView getTextViewNama() {
@@ -75,9 +88,23 @@ public class AdapterPilihAnggota extends ListAdapter<Peserta, AdapterPilihAnggot
             return imageViewPeserta;
         }
 
+        public CheckBox getCheckBox() {
+            return checkBox;
+        }
+
+        public boolean isCheckStatus() {
+            return checkStatus;
+        }
+
+        public void setCheckStatus(boolean checkStatus) {
+            this.checkStatus = checkStatus;
+        }
+
         public void setItemClickListener(ItemClickListener itemClickListener){
             this.itemClickListener = itemClickListener;
         }
+
+
 
         @Override
         public void onClick(View v) {
@@ -112,7 +139,18 @@ public class AdapterPilihAnggota extends ListAdapter<Peserta, AdapterPilihAnggot
                 if(isLongClick){
                     Toast.makeText(context, "Long click "+ viewHolder.getTextViewNama().getText().toString(), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(context, "click "+ "Bisa", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "click "+ "Bisa", Toast.LENGTH_SHORT).show();
+                    viewHolder.setCheckStatus(!viewHolder.isCheckStatus());
+                    viewHolder.getCheckBox().setChecked(viewHolder.isCheckStatus());
+                    if(viewHolder.isCheckStatus()){
+                        if(!checkedItemList.contains(position)){
+                            checkedItemList.add(position);
+                        }
+                    }else {
+                        if(checkedItemList.contains(position)){
+                            checkedItemList.remove((Object)position);
+                        }
+                    }
                 }
             }
         });
@@ -122,35 +160,7 @@ public class AdapterPilihAnggota extends ListAdapter<Peserta, AdapterPilihAnggot
         return getItem(pos);
     }
 
-//    private void previewKelompok(int pos){
-//        View view = LayoutInflater.from(context).inflate(R.layout.preview_peserta, null, false);
-//        final TextView namaPeserta = (TextView) view.findViewById(R.id.textview_preview_nama_peserta);
-//        final TextView notelp = (TextView) view.findViewById(R.id.textview_preview_notelp);
-//        final TextView alamat = (TextView) view.findViewById(R.id.textview_preview_screen_alamat);
-//        CircleImageView button = (CircleImageView) view.findViewById(R.id.dismiss_preview_button);
-//        CircleImageView profilePic = (CircleImageView) view.findViewById(R.id.img_profile);
-//
-//        namaPeserta.setTypeface(TextMeOneStyle);
-//        notelp.setTypeface(TextMeOneStyle);
-//        alamat.setTypeface(TextMeOneStyle);
-//
-//        namaPeserta.setText(getItem(pos).getNama());
-//        notelp.setText("+62" + getItem(pos).getNoTelp());
-//        alamat.setText(getItem(pos).getAlamat());
-//        Bitmap img = BitmapFactory.decodeByteArray(getItem(pos).getImg(),0, getItem(pos).getImg().length);
-//        profilePic.setImageBitmap(img);
-//
-//        final Dialog dialog = new Dialog(context);
-//        dialog.setContentView(view);
-//        dialog.setCanceledOnTouchOutside(false);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        dialog.show();
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//    }
+    public List<Integer> getCheckedItemList() {
+        return checkedItemList;
+    }
 }
