@@ -65,7 +65,7 @@ public class KelompokViewActivity extends AppCompatActivity {
 //        pilihAnggotaFragment.setArguments(b);
 
         fragmentManager.beginTransaction()
-                .add(R.id.anggotaFrame, anggotaFragment)
+                .add(R.id.anggotaFrame, anggotaFragment, "Anggota")
                 .commit();
 
     }

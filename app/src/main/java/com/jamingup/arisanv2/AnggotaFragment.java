@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -87,6 +88,11 @@ public class AnggotaFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void addAnggota(String namaP){
+        anggotaViewModel.insert(new Anggota(namaP, namaKelompok));
+        updateRecycler();
     }
 
 }

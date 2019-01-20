@@ -179,8 +179,22 @@ public class PesertaFragment extends Fragment {
                 //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
                 if(editNamaPeserta.getText().length() != 0 && editNotelp.getText().length() != 0
                         && editAlamat.getText().length() != 0 && bmpImage != null){
-                    saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage);
-                    dialog.dismiss();
+                    //data validation
+                    List<Peserta> pesertaList = mAdapter.getListPeserta();
+                    boolean ada = false;
+                    for (int i = 0; i <pesertaList.size() ; i++) {
+                        if(pesertaList.get(i).getNama().equals(editNamaPeserta.getText().toString()))
+                            ada = true;
+                    }
+
+                    if(ada) {
+                        Toast.makeText(getContext(),"Nama Sudah ada", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage);
+                        dialog.dismiss();
+                    }
                 }else{
                     Toast.makeText(getContext(), "Data harus terisi Semua", Toast.LENGTH_SHORT).show();
                 }

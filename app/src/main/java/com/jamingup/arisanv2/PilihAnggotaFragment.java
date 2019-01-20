@@ -3,6 +3,7 @@ package com.jamingup.arisanv2;
 import android.Manifest;
 import android.app.Dialog;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -52,24 +53,27 @@ public class PilihAnggotaFragment extends DialogFragment {
     private Typeface TextMeOneStyle;
 
     private PesertaViewModel pesertaViewModel;
+//    private AnggotaViewModel anggotaViewModel;
     private String namaKelompok;
     private boolean allChecked;
 
     private Button btn_simpanAnggota;
+    private Button btn_cancel;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle b = getArguments();
         namaKelompok = b.getString("namaKelompok");
-
+        AnggotaFragment ag = new AnggotaFragment();
         pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
+//        anggotaViewModel = ViewModelProviders.of(ag).get(AnggotaViewModel.class);
+
         updateRecycler();
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
         allChecked = false;
     }
 
     private void updateRecycler() {
-
         pesertaViewModel.getPesertaWithoutKelompok(namaKelompok).observe(this, new Observer<List<Peserta>>() {
             @Override
             public void onChanged(@Nullable List<Peserta> pesertas) {
@@ -138,14 +142,31 @@ public class PilihAnggotaFragment extends DialogFragment {
             public void onClick(View v) {
                 if(mAdapter.getCheckedItemList().isEmpty()){
                     Toast.makeText(getContext(), "Belum ada yang terpilih", Toast.LENGTH_SHORT).show();
+                }else if(mAdapter.getCheckedItemList().size() < 2){
+                    Toast.makeText(getContext(), "Minimal 2 Peserta", Toast.LENGTH_SHORT).show();
                 }else {
-                    String cth = mAdapter.getPesertaAt(mAdapter.getCheckedItemList().get(0)).getNama();
-                    Toast.makeText(getContext(), "Ada si "+cth, Toast.LENGTH_SHORT).show();
+                    AnggotaFragment anggotaFragment = (AnggotaFragment) getActivity().getSupportFragmentManager().findFragmentByTag("Anggota");
+                    for (int i = 0; i < mAdapter.getCheckedItemList().size() ; i++) {
+                        anggotaFragment.addAnggota(mAdapter.getPesertaAt(mAdapter.getCheckedItemList().get(i)).getNama());
+                    }
+
+                    Toast.makeText(getContext(), mAdapter.getCheckedItemList().size() + "Anggota ditambahkan", Toast.LENGTH_SHORT).show();
+                    getDialog().dismiss();
                 }
+            }
+        });
+
+        btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
             }
         });
         return view;
     }
+
+
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);

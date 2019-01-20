@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHolder> {
@@ -121,6 +124,16 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
 
     public Peserta getPesertaAt(int pos){
         return getItem(pos);
+    }
+
+    public List<Peserta> getListPeserta(){
+        List<Peserta> pesertaList = new ArrayList<Peserta>();
+
+        for (int i = 0; i <getItemCount() ; i++) {
+            pesertaList.add(getItem(i));
+        }
+
+        return pesertaList;
     }
 
     private void previewKelompok(int pos){

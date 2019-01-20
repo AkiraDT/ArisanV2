@@ -17,17 +17,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterAnggota extends ListAdapter<Anggota, AdapterAnggota.ViewHolder> {
     private static final String TAG = "AdapterAnggota";
     private Context context;
     private Typeface TextMeOneStyle;
+    private PesertaViewModel pesertaViewModel;
+    private List<Peserta> pesertaList = new ArrayList<Peserta>();
 
     public AdapterAnggota(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
         TextMeOneStyle = typeface;
         this.context = context;
+        //pesertaList = pesertaViewModel
     }
 
     private static final DiffUtil.ItemCallback<Anggota> DIFF_CALLBACK = new DiffUtil.ItemCallback<Anggota>() {
