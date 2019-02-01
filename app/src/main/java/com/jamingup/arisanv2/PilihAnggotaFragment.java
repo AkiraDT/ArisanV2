@@ -53,7 +53,7 @@ public class PilihAnggotaFragment extends DialogFragment {
     private Typeface TextMeOneStyle;
 
     private PesertaViewModel pesertaViewModel;
-//    private AnggotaViewModel anggotaViewModel;
+    //    private AnggotaViewModel anggotaViewModel;
     private String namaKelompok;
     private boolean allChecked;
 
@@ -134,22 +134,28 @@ public class PilihAnggotaFragment extends DialogFragment {
 //                Toast.makeText(getContext(),mAdapter.getPesertaAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
 //            }
 //        }).attachToRecyclerView(mRecyclerView);
+
         updateRecycler();
 
-        btn_simpanAnggota = (Button)view.findViewById(R.id.btn_simpanAnggota);
+        btn_simpanAnggota = (Button) view.findViewById(R.id.btn_simpanAnggota);
         btn_simpanAnggota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mAdapter.getCheckedItemList().isEmpty()){
+                AnggotaFragment anggotaFragment = (AnggotaFragment) getActivity().getSupportFragmentManager().findFragmentByTag("Anggota");
+                if (mAdapter.getCheckedItemList().isEmpty()) {
                     Toast.makeText(getContext(), "Belum ada yang terpilih", Toast.LENGTH_SHORT).show();
-                }else if(mAdapter.getCheckedItemList().size() < 2){
-                    Toast.makeText(getContext(), "Minimal 2 Peserta", Toast.LENGTH_SHORT).show();
-                }else {
-                    AnggotaFragment anggotaFragment = (AnggotaFragment) getActivity().getSupportFragmentManager().findFragmentByTag("Anggota");
-                    for (int i = 0; i < mAdapter.getCheckedItemList().size() ; i++) {
+                } else {
+                    if (anggotaFragment.isAnggotaEmpty()) {
+                        if (mAdapter.getCheckedItemList().size() < 2) {
+                            Toast.makeText(getContext(), "Minimal 2 Peserta", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    for (int i = 0; i < mAdapter.getCheckedItemList().size(); i++) {
                         anggotaFragment.addAnggota(mAdapter.getPesertaAt(mAdapter.getCheckedItemList().get(i)).getNama());
                     }
 
+                    anggotaFragment.updateJumlahAnggota();
                     Toast.makeText(getContext(), mAdapter.getCheckedItemList().size() + "Anggota ditambahkan", Toast.LENGTH_SHORT).show();
                     getDialog().dismiss();
                 }
@@ -165,7 +171,6 @@ public class PilihAnggotaFragment extends DialogFragment {
         });
         return view;
     }
-
 
 
     public void onSaveInstanceState(Bundle savedInstanceState) {

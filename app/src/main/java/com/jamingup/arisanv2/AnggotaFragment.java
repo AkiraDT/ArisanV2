@@ -95,4 +95,16 @@ public class AnggotaFragment extends Fragment {
         updateRecycler();
     }
 
+    public void updateJumlahAnggota(){
+        //((KelompokViewActivity)getActivity()).updateJumlahAnggota();
+    }
+
+    public boolean isAnggotaEmpty(){
+        if(mAdapter.getItemCount() > 1){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
 }

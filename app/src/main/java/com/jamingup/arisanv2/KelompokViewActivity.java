@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class KelompokViewActivity extends AppCompatActivity {
     private Typeface TextMeOneStyle;
@@ -18,6 +19,7 @@ public class KelompokViewActivity extends AppCompatActivity {
     private TextView labelNominalHadiah;
     private TextView labelJumlahAnggota;
     private ImageView imgKelompok;
+    private int idKelompok;
 
     private KelompokViewModel kelompokViewModel;
 
@@ -52,6 +54,7 @@ public class KelompokViewActivity extends AppCompatActivity {
         double hadiah = Double.parseDouble(String.valueOf(getIntent().getIntExtra("hadiah", 0)));
         labelNominalHadiah.setText("Rp. " + String.format("%,.2f", hadiah));
         labelJumlahAnggota.setText(String.valueOf(getIntent().getIntExtra("jumlah", 0)) + " Anggota");
+        idKelompok = getIntent().getIntExtra("idKelompok", -1);
         imgKelompok.setImageBitmap(img);
 
         anggotaFragment = new AnggotaFragment();
@@ -68,6 +71,16 @@ public class KelompokViewActivity extends AppCompatActivity {
                 .add(R.id.anggotaFrame, anggotaFragment, "Anggota")
                 .commit();
 
+    }
+
+    public void updateJumlahAnggota(int jumlahAnggota){
+        if(idKelompok != -1) {
+            Kelompok kelompok = new Kelompok(getIntent().getStringExtra("nama"), getIntent().getIntExtra("hadiah", 0), getIntent().getStringExtra("interval"), getIntent().getByteArrayExtra("img"));
+            kelompok.setId(idKelompok);
+            kelompok.setJumlahAnggota(jumlahAnggota);
+            Toast.makeText(this, ""+ jumlahAnggota, Toast.LENGTH_SHORT).show();
+//            kelompokViewModel.update(kelompok);
+        }
     }
 
     @Override

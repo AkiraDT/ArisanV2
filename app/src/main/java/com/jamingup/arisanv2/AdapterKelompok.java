@@ -121,7 +121,8 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if(isLongClick){
-                    Toast.makeText(context, "Long click "+ viewHolder.getTextViewNama().getText().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Long click "+ viewHolder.getTextViewNama().getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Long click "+ getItem(position).getId(), Toast.LENGTH_SHORT).show();
                 }else{
 //                    previewKelompok(position);
                     Toast.makeText(context, "click "+ "Bisa", Toast.LENGTH_SHORT).show();
@@ -130,6 +131,8 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
                     intent.putExtra("jumlah", getItem(position).getJumlahAnggota());
                     intent.putExtra("hadiah", getItem(position).getNominalHadiah());
                     intent.putExtra("img", getItem(position).getImg());
+                    intent.putExtra("idKelompok", getItem(position).getId());
+                    intent.putExtra("interval", getItem(position).getInterval());
                     context.startActivity(intent);
                 }
             }
