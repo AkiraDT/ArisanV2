@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_kelompok:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.mainContent, kelompokFrag)
+                            .replace(R.id.mainContent, kelompokFrag, "kelompoks")
                             .commit();
                     toolbarText.setText("Kelompok Arisan");
                     return true;

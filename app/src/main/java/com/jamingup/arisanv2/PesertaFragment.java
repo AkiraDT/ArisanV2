@@ -30,6 +30,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -128,7 +130,7 @@ public class PesertaFragment extends Fragment {
     }
 
     private void addPeserta(){
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.add_peserta_form, null, false);
+        final View view = LayoutInflater.from(getContext()).inflate(R.layout.add_peserta_form, null, false);
         final TextView namaPeserta = (TextView) view.findViewById(R.id.label_name);
         final TextView notelp = (TextView) view.findViewById(R.id.label_telp);
         final TextView alamat = (TextView) view.findViewById(R.id.label_alamat);
@@ -139,6 +141,8 @@ public class PesertaFragment extends Fragment {
         final EditText editNotelp = (EditText) view.findViewById(R.id.add_telp);
         final EditText editAlamat = (EditText) view.findViewById(R.id.add_alamat);
         imgThumbnail = (CircleImageView) view.findViewById(R.id.img_profile);
+        final TextView jenisKelamin = (TextView) view.findViewById(R.id.label_jenisKelamin);
+        final RadioGroup jenisKelaminGroup = (RadioGroup) view.findViewById(R.id.add_jenisKelamin);
 
         namaPeserta.setTypeface(TextMeOneStyle);
         notelp.setTypeface(TextMeOneStyle);
@@ -149,6 +153,7 @@ public class PesertaFragment extends Fragment {
         editAlamat.setTypeface(TextMeOneStyle);
         cancelButton.setTypeface(TextMeOneStyle);
         acceptButton.setTypeface(TextMeOneStyle);
+        jenisKelamin.setTypeface(TextMeOneStyle);
         bmpImage = null;
 
         final Dialog dialog = new Dialog(getContext());
@@ -192,7 +197,8 @@ public class PesertaFragment extends Fragment {
                     }
                     else
                     {
-                        saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage);
+                        RadioButton radioButton = view.findViewById(jenisKelaminGroup.getCheckedRadioButtonId());
+                        saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage, radioButton.getText().toString());
                         dialog.dismiss();
                     }
                 }else{
@@ -334,9 +340,9 @@ public class PesertaFragment extends Fragment {
     }
 
     //Uuntuk menyimpan data peserta dan menambahakan ke list
-    private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img){
+    private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img, String jenisKelamin){
         byte[] image = bitmapToByteArray(img);
-        pesertaViewModel.insert(new Peserta(nama, noTelp, alamat, image));
+        pesertaViewModel.insert(new Peserta(nama, noTelp, alamat, image, jenisKelamin));
         updateRecycler();
         Toast.makeText(getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
     }

@@ -143,6 +143,7 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         final TextView alamat = (TextView) view.findViewById(R.id.textview_preview_screen_alamat);
         CircleImageView button = (CircleImageView) view.findViewById(R.id.dismiss_preview_button);
         CircleImageView profilePic = (CircleImageView) view.findViewById(R.id.img_profile);
+        final View viewBg = (View) view.findViewById(R.id.bgPreview);
 
         namaPeserta.setTypeface(TextMeOneStyle);
         notelp.setTypeface(TextMeOneStyle);
@@ -153,6 +154,12 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         alamat.setText(getItem(pos).getAlamat());
         Bitmap img = BitmapFactory.decodeByteArray(getItem(pos).getImg(),0, getItem(pos).getImg().length);
         profilePic.setImageBitmap(img);
+
+        if(getItem(pos).getJenisKelamin().equalsIgnoreCase("laki-laki")){
+            viewBg.setBackgroundResource(R.drawable.male_8);
+        }else{
+            viewBg.setBackgroundResource(R.drawable.female_8);
+        }
 
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(view);

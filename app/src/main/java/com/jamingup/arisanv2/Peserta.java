@@ -13,6 +13,7 @@ public class Peserta {
     private String noTelp;
     private String alamat;
     private byte[] img;
+    private String jenisKelamin;
 
     @Ignore
     public Peserta(String nama, String noTelp, String alamat){
@@ -21,11 +22,12 @@ public class Peserta {
         this.alamat = alamat;
     }
 
-    public Peserta(String nama, String noTelp, String alamat, byte[] img){
+    public Peserta(String nama, String noTelp, String alamat, byte[] img, String jenisKelamin){
         this.nama = nama;
         this.noTelp = noTelp;
         this.alamat = alamat;
         this.img = img;
+        this.jenisKelamin = jenisKelamin;
     }
 
     public void setId(int id) {
@@ -49,5 +51,7 @@ public class Peserta {
     public byte[] getImg(){
         return img;
     }
+
+    public String getJenisKelamin(){return jenisKelamin;}
 
 }

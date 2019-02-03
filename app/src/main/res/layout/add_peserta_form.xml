@@ -1,187 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="372dp"
+        android:layout_height="400dp"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        >
+        android:paddingEnd="16dp">
 
         <android.support.v7.widget.CardView
             android:id="@+id/preview_profile_background"
             android:layout_width="wrap_content"
-            android:layout_height="372dp"
-            app:cardElevation="1dp"
+            android:layout_height="400dp"
             app:cardCornerRadius="10dp"
-            >
+            app:cardElevation="1dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_profile"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:layout_marginTop="48dp"
-                android:src="@drawable/camera_icon"
-                app:civ_circle_background_color="@color/colorPrimary"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
                 android:elevation="2dp"
-                />
+                android:src="@drawable/camera_icon"
+                app:civ_circle_background_color="@color/colorPrimary" />
 
             <LinearLayout
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
-                >
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="102dp"
-                    android:background="@color/colorPrimaryDark"
-                    />
+                    android:background="@color/colorPrimaryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp">
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
                         <!-- Label -->
                         <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                >
-                            <TextView
-                                android:id="@+id/label_name"
-                                android:text="Nama"
-                                android:layout_height="match_parent"
-                                android:layout_width="72dp"
-                                android:textSize="20sp"
-                                android:layout_marginBottom="8dp"
-                                android:gravity="bottom"/>
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/label_name"
+                                    android:layout_width="72dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:gravity="bottom"
+                                    android:text="Nama"
+                                    android:textSize="20sp" />
+
                                 <EditText
                                     android:id="@+id/add_nama"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="textCapWords"
-                                    android:textSize="20sp"/>
+                                    android:textSize="20sp" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/label_telp"
-                                android:text="No.Telp"
-                                android:layout_width="72dp"
-                                android:layout_height="match_parent"
-                                android:textSize="20sp"
-                                android:layout_marginBottom="8dp"
-                                android:gravity="bottom"/>
+
+                                <TextView
+                                    android:id="@+id/label_telp"
+                                    android:layout_width="72dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:gravity="bottom"
+                                    android:text="No.Telp"
+                                    android:textSize="20sp" />
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
+
                                     <EditText
                                         android:id="@+id/kode_reg"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="+62"
-                                        android:inputType="none"
                                         android:editable="false"
-                                        />
+                                        android:inputType="none"
+                                        android:text="+62" />
+
                                     <EditText
                                         android:id="@+id/add_telp"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:textSize="20sp"
                                         android:inputType="phone"
-                                        android:maxLength="12"/>
+                                        android:maxLength="12"
+                                        android:textSize="20sp" />
                                 </LinearLayout>
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/label_alamat"
-                                android:text="Alamat"
-                                android:layout_width="72dp"
+                                <TextView
+                                    android:id="@+id/label_jenisKelamin"
+                                    android:text="Gender"
+                                    android:layout_width="78dp"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20sp"
+                                    android:layout_marginBottom="8dp"/>
+                                <RadioGroup
+                                    android:id="@+id/add_jenisKelamin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="16dp">
+                                    <RadioButton
+                                        android:id="@+id/radio_mingguan"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:checked="true"
+                                        android:text="Laki-laki"/>
+                                    <RadioButton
+                                        android:id="@+id/radio_bulanan"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:text="Perempuan"/>
+                                </RadioGroup>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textSize="20sp"
-                                android:layout_marginBottom="8dp"/>
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/label_alamat"
+                                    android:layout_width="72dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="Alamat"
+                                    android:textSize="20sp" />
+
                                 <EditText
                                     android:id="@+id/add_alamat"
-                                    android:inputType="textMultiLine"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:inputType="textMultiLine"
                                     android:maxLines="2"
-                                    android:textSize="20sp"/>
+                                    android:textSize="20sp" />
                             </LinearLayout>
-                        </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <LinearLayout
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:elevation="2dp">
+            android:layout_alignParentBottom="true"
+            android:elevation="2dp"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/cancel_button"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
                 android:layout_marginStart="24dp"
-                android:elevation="2dp"
                 android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
                 android:text="Batal"
                 android:textColor="#FFF"
-                android:textSize="20sp"
-                android:background="@color/colorPrimaryDark"
-                />
+                android:textSize="20sp" />
+
             <View
                 android:layout_width="8dp"
-                android:layout_height="0dp"/>
+                android:layout_height="0dp" />
+
             <Button
                 android:id="@+id/accept_button"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:elevation="2dp"
+                android:layout_alignParentBottom="true"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
                 android:text="Simpan"
                 android:textColor="#FFF"
-                android:textSize="20sp"
-                android:background="@color/colorPrimaryDark"
-                />
+                android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -1,15 +1,19 @@
 package com.jamingup.arisanv2;
 
+import android.arch.lifecycle.Observer;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class KelompokViewActivity extends AppCompatActivity {
     private Typeface TextMeOneStyle;
@@ -20,8 +24,6 @@ public class KelompokViewActivity extends AppCompatActivity {
     private TextView labelJumlahAnggota;
     private ImageView imgKelompok;
     private int idKelompok;
-
-    private KelompokViewModel kelompokViewModel;
 
     private FragmentManager fragmentManager;
     private AnggotaFragment anggotaFragment;
@@ -70,7 +72,6 @@ public class KelompokViewActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .add(R.id.anggotaFrame, anggotaFragment, "Anggota")
                 .commit();
-
     }
 
     public void updateJumlahAnggota(int jumlahAnggota){
@@ -78,8 +79,9 @@ public class KelompokViewActivity extends AppCompatActivity {
             Kelompok kelompok = new Kelompok(getIntent().getStringExtra("nama"), getIntent().getIntExtra("hadiah", 0), getIntent().getStringExtra("interval"), getIntent().getByteArrayExtra("img"));
             kelompok.setId(idKelompok);
             kelompok.setJumlahAnggota(jumlahAnggota);
-            Toast.makeText(this, ""+ jumlahAnggota, Toast.LENGTH_SHORT).show();
-//            kelompokViewModel.update(kelompok);
+//            Toast.makeText(this, ""+ jumlahAnggota, Toast.LENGTH_SHORT).show();
+            KelompokFragment kelompokFragment = (KelompokFragment) getSupportFragmentManager().findFragmentByTag("kelompoks");
+            kelompokFragment.updateJumlahAnggota(kelompok);
         }
     }
 

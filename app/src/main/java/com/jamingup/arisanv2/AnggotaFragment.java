@@ -96,7 +96,7 @@ public class AnggotaFragment extends Fragment {
     }
 
     public void updateJumlahAnggota(){
-        //((KelompokViewActivity)getActivity()).updateJumlahAnggota();
+        ((KelompokViewActivity)getActivity()).updateJumlahAnggota(8);
     }
 
     public boolean isAnggotaEmpty(){
