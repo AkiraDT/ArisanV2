@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -58,12 +59,18 @@ public class KelompokFragment extends Fragment {
 
     private KelompokViewModel kelompokViewModel;
 
+    private int picIndex = 0;
+    private int []kelompokPic = {R.drawable.kelompok_1};
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         kelompokViewModel = ViewModelProviders.of(this).get(KelompokViewModel.class);
         updateRecycler();
 
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
+        if(savedInstanceState != null){
+            picIndex = savedInstanceState.getInt("picIndex");
+        }
     }
 
     private void updateRecycler() {
@@ -185,8 +192,7 @@ public class KelompokFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
-                if (editNamaKelompok.getText().length() != 0 && editNominal.getText().length() != 0
-                        && bmpImage != null) {
+                if (editNamaKelompok.getText().length() != 0 && editNominal.getText().length() != 0) {
                     double nominal = Double.parseDouble(editNominal.getText().toString());
                     if(nominal <= 100000000) {
                         RadioButton radioButton = view.findViewById(intervalGroup.getCheckedRadioButtonId());
@@ -343,6 +349,9 @@ public class KelompokFragment extends Fragment {
 
     //    //Uuntuk menyimpan data peserta dan menambahakan ke list
     private void saveDataKelompok(String nama, int nominal, String interval, Bitmap img) {
+        if(img == null){
+            img = BitmapFactory.decodeResource(getContext().getResources(), kelompokPic[picIndex]);
+        }
         byte[] image = bitmapToByteArray(img);
         kelompokViewModel.insert(new Kelompok(nama, nominal, interval, image));
         updateRecycler();
@@ -358,5 +367,6 @@ public class KelompokFragment extends Fragment {
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("picIndex", picIndex);
     }
 }

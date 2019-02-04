@@ -11,7 +11,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -58,11 +60,19 @@ public class PesertaFragment extends Fragment {
 
     private PesertaViewModel pesertaViewModel;
 
+    private int girlIndex = 0, boyIndex = 0;
+    private int girlPic [] = {R.drawable.girl_1_8, R.drawable.girl_2_8, R.drawable.girl_3_8, R.drawable.girl_4_8};
+    private int boyPic [] = {R.drawable.boy_1_8, R.drawable.boy_2_8, R.drawable.boy_3_8, R.drawable.boy_4_8};
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
         updateRecycler();
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
+        if(savedInstanceState != null){
+            girlIndex = savedInstanceState.getInt("girlIndex");
+            boyIndex = savedInstanceState.getInt("boyIndex");
+        }
     }
 
     private void updateRecycler() {
@@ -183,7 +193,7 @@ public class PesertaFragment extends Fragment {
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
                 if(editNamaPeserta.getText().length() != 0 && editNotelp.getText().length() != 0
-                        && editAlamat.getText().length() != 0 && bmpImage != null){
+                        && editAlamat.getText().length() != 0){
                     //data validation
                     List<Peserta> pesertaList = mAdapter.getListPeserta();
                     boolean ada = false;
@@ -341,6 +351,23 @@ public class PesertaFragment extends Fragment {
 
     //Uuntuk menyimpan data peserta dan menambahakan ke list
     private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img, String jenisKelamin){
+        if(girlIndex == 4){
+            girlIndex = 0;
+        }
+        if(boyIndex == 4){
+            boyIndex = 0;
+        }
+
+        if(img == null){
+            if(jenisKelamin.equalsIgnoreCase("laki-laki")){
+                img = BitmapFactory.decodeResource(getContext().getResources(), boyPic[boyIndex]);
+                boyIndex++;
+            }else{
+                img = BitmapFactory.decodeResource(getContext().getResources(), girlPic[girlIndex]);
+                girlIndex++;
+            }
+        }
+
         byte[] image = bitmapToByteArray(img);
         pesertaViewModel.insert(new Peserta(nama, noTelp, alamat, image, jenisKelamin));
         updateRecycler();
@@ -356,5 +383,7 @@ public class PesertaFragment extends Fragment {
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("girlIndex", girlIndex);
+        savedInstanceState.putInt("boyIndex", boyIndex);
     }
 }

@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
                     toolbarText.setText("Kelompok Arisan");
                     return true;
                 case R.id.navigation_tagihan:
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.mainContent, tagihanFrag)
-                            .commit();
-                    toolbarText.setText("Tagihan Arisan");
+//                    fragmentManager.beginTransaction()
+//                            .replace(R.id.mainContent, tagihanFrag)
+//                            .commit();
+//                    toolbarText.setText("Tagihan Arisan");
                     return true;
                 case R.id.navigation_kocok:
                     fragmentManager.beginTransaction()

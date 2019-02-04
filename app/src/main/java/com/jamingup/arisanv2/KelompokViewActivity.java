@@ -28,7 +28,16 @@ public class KelompokViewActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private AnggotaFragment anggotaFragment;
 //    private PilihAnggotaFragment pilihAnggotaFragment;
+    private PesertaViewModel pesertaViewModel;
+    private String namaKelompok;
 
+    private void updateList() {
+        pesertaViewModel.getPesertaWithoutKelompok(namaKelompok).observe(this, new Observer<List<Peserta>>() {
+            @Override
+            public void onChanged(@Nullable List<Peserta> pesertas) {
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,8 @@ public class KelompokViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_kelompok_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        namaKelompok = getIntent().getStringExtra("nama");
 
         TextMeOneStyle = Typeface.createFromAsset(getAssets(), "fonts/TextMeOne-Regular.ttf");
         toolbarText = (TextView) findViewById(R.id.toolbar_text);
