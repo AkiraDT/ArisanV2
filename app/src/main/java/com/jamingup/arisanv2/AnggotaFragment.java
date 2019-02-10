@@ -51,11 +51,11 @@ public class AnggotaFragment extends Fragment {
     }
 
     private void updateRecycler() {
-        anggotaViewModel.getAllAnggota().observe(this, new Observer<List<Anggota>>() {
+        anggotaViewModel.getPesertaInKelompok(namaKelompok).observe(this, new Observer<List<Peserta>>() {
             @Override
-            public void onChanged(@Nullable List<Anggota> anggotas) {
+            public void onChanged(@Nullable List<Peserta> pesertas) {
                 //update RecyclerView
-                mAdapter.submitList(anggotas);
+                mAdapter.submitList(pesertas);
             }
         });
     }

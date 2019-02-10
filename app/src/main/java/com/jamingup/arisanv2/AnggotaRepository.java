@@ -9,11 +9,13 @@ import java.util.List;
 public class AnggotaRepository {
     private AnggotaDao anggotaDao;
     private LiveData<List<Anggota>> allAnggota;
+    private LiveData<List<Peserta>> allPeserta;
 
     public AnggotaRepository(Application application, String namaKelompok){
         ArisanDatabase arisanDatabase = ArisanDatabase.getInstance(application);
         anggotaDao = arisanDatabase.anggotaDao();
         allAnggota = anggotaDao.getAllAnggota(namaKelompok);
+        allPeserta = anggotaDao.getPesertaInKelompok(namaKelompok);
     }
 
 
@@ -35,6 +37,12 @@ public class AnggotaRepository {
 
     public LiveData<List<Anggota>> getAllAnggota() {
         return allAnggota;
+    }
+
+    //Hapus Ntar
+    public LiveData<List<Peserta>> getPesertaInKelompok(String namaKelompok){
+        LiveData<List<Peserta>> peserta = anggotaDao.getPesertaInKelompok(namaKelompok);
+        return peserta;
     }
 
     private static class InsertAnggotaAsyncTask extends AsyncTask<Anggota, Void, Void>{

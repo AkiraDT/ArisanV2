@@ -22,7 +22,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterAnggota extends ListAdapter<Anggota, AdapterAnggota.ViewHolder> {
+public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHolder> {
     private static final String TAG = "AdapterAnggota";
     private Context context;
     private Typeface TextMeOneStyle;
@@ -36,15 +36,15 @@ public class AdapterAnggota extends ListAdapter<Anggota, AdapterAnggota.ViewHold
         //pesertaList = pesertaViewModel
     }
 
-    private static final DiffUtil.ItemCallback<Anggota> DIFF_CALLBACK = new DiffUtil.ItemCallback<Anggota>() {
+    private static final DiffUtil.ItemCallback<Peserta> DIFF_CALLBACK = new DiffUtil.ItemCallback<Peserta>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Anggota anggotaData, @NonNull Anggota newAnggotaData) {
+        public boolean areItemsTheSame(@NonNull Peserta anggotaData, @NonNull Peserta newAnggotaData) {
             return anggotaData.getId() == newAnggotaData.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Anggota anggotaData, @NonNull Anggota newAnggotaData) {
-            return anggotaData.getNamaP().equals(newAnggotaData.getNamaP());
+        public boolean areContentsTheSame(@NonNull Peserta anggotaData, @NonNull Peserta newAnggotaData) {
+            return anggotaData.getNama().equals(newAnggotaData.getNama());
         }
     };
 
@@ -101,7 +101,9 @@ public class AdapterAnggota extends ListAdapter<Anggota, AdapterAnggota.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //add keanggotaan here later
-        viewHolder.getTextViewNama().setText(getItem(position).getNamaP());
+        viewHolder.getTextViewNama().setText(getItem(position).getNama());
+        Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(), 0, getItem(position).getImg().length);
+        viewHolder.getImageViewPeserta().setImageBitmap(img);
         //Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(), 0, getItem(position).getImg().length);
         //viewHolder.getImageViewPeserta().setImageBitmap(img);
         viewHolder.setItemClickListener(new ItemClickListener() {
@@ -117,7 +119,7 @@ public class AdapterAnggota extends ListAdapter<Anggota, AdapterAnggota.ViewHold
         });
     }
 
-    public Anggota getAnggotaAt(int pos){
+    public Peserta getAnggotaAt(int pos){
         return getItem(pos);
     }
 

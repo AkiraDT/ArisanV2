@@ -39,4 +39,8 @@ public class AnggotaViewModel extends AndroidViewModel{
         return allAnggota;
     }
 
+    public LiveData<List<Peserta>> getPesertaInKelompok(String namaKelompok){
+        LiveData<List<Peserta>> peserta = repository.getPesertaInKelompok(namaKelompok);
+        return peserta;
+    }
 }
