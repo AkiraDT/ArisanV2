@@ -101,7 +101,14 @@ public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //add keanggotaan here later
-        viewHolder.getTextViewNama().setText(getItem(position).getNama());
+        String nama = getItem(position).getNama();
+
+        if(nama.contains(" ")){
+            String[] namaSplit = nama.split(" ");
+            viewHolder.getTextViewNama().setText(namaSplit[0] + " " + namaSplit[1].toUpperCase().charAt(0) + ".");
+        }else {
+            viewHolder.getTextViewNama().setText(nama);
+        }
         Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(), 0, getItem(position).getImg().length);
         viewHolder.getImageViewPeserta().setImageBitmap(img);
         //Bitmap img = BitmapFactory.decodeByteArray(getItem(position).getImg(), 0, getItem(position).getImg().length);

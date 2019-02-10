@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
 //                            .replace(R.id.mainContent, tagihanFrag)
 //                            .commit();
 //                    toolbarText.setText("Tagihan Arisan");
-                    return true;
+                    Toast.makeText(getApplicationContext(), "Masih Dalam Pengembangan", Toast.LENGTH_SHORT).show();
+                    return false;
                 case R.id.navigation_kocok:
                     fragmentManager.beginTransaction()
                             .replace(R.id.mainContent, kocokFrag)
@@ -66,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
 //                    fragmentManager.beginTransaction()
 //                            .replace(R.id.content, pilihKelompokPemenangFrag)
 //                            .commit();
-                    toolbarText.setText("Pemenang Arisan");
-                    return true;
+//                    toolbarText.setText("Pemenang Arisan");
+                    Toast.makeText(getApplicationContext(), "Masih Dalam Pengembangan", Toast.LENGTH_SHORT).show();
+                    return false;
             }
             return false;
         }

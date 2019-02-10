@@ -12,6 +12,13 @@
         android:layout_height="80dp"
         android:src="@drawable/tumblr_opq5t2c3pd1qbytw2o4_r1_5401" />
 
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:layout_width="74dp"
+        android:layout_height="80dp"
+        android:src="@drawable/half_life_8"
+        android:scaleType="fitEnd"/>
+
     <TextView
         android:id="@+id/textView_anggota_list_content"
         android:layout_width="match_parent"
@@ -19,12 +26,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="1"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:text="Hishiro Cihiro"
         android:textColor="#FFF"
-        android:textSize="8sp" />
+        android:textSize="12sp"/>
 </RelativeLayout>
