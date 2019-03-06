@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -28,16 +29,17 @@ public class KelompokViewActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private AnggotaFragment anggotaFragment;
 //    private PilihAnggotaFragment pilihAnggotaFragment;
-    private PesertaViewModel pesertaViewModel;
+//    private PesertaViewModel pesertaViewModel;
     private String namaKelompok;
 
-    private void updateList() {
-        pesertaViewModel.getPesertaWithoutKelompok(namaKelompok).observe(this, new Observer<List<Peserta>>() {
-            @Override
-            public void onChanged(@Nullable List<Peserta> pesertas) {
-            }
-        });
-    }
+
+//    private void updateList() {
+//        pesertaViewModel.getPesertaWithoutKelompok(namaKelompok).observe(this, new Observer<List<Peserta>>() {
+//            @Override
+//            public void onChanged(@Nullable List<Peserta> pesertas) {
+//            }
+//        });
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,10 @@ public class KelompokViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_kelompok_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         namaKelompok = getIntent().getStringExtra("nama");
 
@@ -85,16 +91,16 @@ public class KelompokViewActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void updateJumlahAnggota(int jumlahAnggota){
-        if(idKelompok != -1) {
-            Kelompok kelompok = new Kelompok(getIntent().getStringExtra("nama"), getIntent().getIntExtra("hadiah", 0), getIntent().getStringExtra("interval"), getIntent().getByteArrayExtra("img"));
-            kelompok.setId(idKelompok);
-            kelompok.setJumlahAnggota(jumlahAnggota);
-//            Toast.makeText(this, ""+ jumlahAnggota, Toast.LENGTH_SHORT).show();
-            KelompokFragment kelompokFragment = (KelompokFragment) getSupportFragmentManager().findFragmentByTag("kelompoks");
-            kelompokFragment.updateJumlahAnggota(kelompok);
-        }
-    }
+//    public void updateJumlahAnggota(int jumlahAnggota){
+//        if(idKelompok != -1) {
+//            Kelompok kelompok = new Kelompok(getIntent().getStringExtra("nama"), getIntent().getIntExtra("hadiah", 0), getIntent().getStringExtra("interval"), getIntent().getByteArrayExtra("img"));
+//            kelompok.setId(idKelompok);
+//            kelompok.setJumlahAnggota(jumlahAnggota);
+////            Toast.makeText(this, ""+ jumlahAnggota, Toast.LENGTH_SHORT).show();
+//            KelompokFragment kelompokFragment = (KelompokFragment) getSupportFragmentManager().findFragmentByTag("kelompoks");
+//            kelompokFragment.updateJumlahAnggota(kelompok);
+//        }
+//    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

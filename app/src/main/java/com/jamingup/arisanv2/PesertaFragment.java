@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -38,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -47,7 +49,8 @@ import static android.app.Activity.RESULT_OK;
 public class PesertaFragment extends Fragment {
 
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 2;
-    public static final int IMAGE_GALERY_REQUEST_CODE = 10;
+    public static final int GALERY_PERMISSION_REQUEST_CODE = 3;
+    public static final int GALERY_REQUEST_CODE = 10;
     public static final int CAMERA_REQUEST_CODE = 1;
     private RecyclerView mRecyclerView;
     private AdapterPeserta mAdapter;
@@ -247,6 +250,15 @@ public class PesertaFragment extends Fragment {
                 dialogImageUpload.dismiss();
             }
         });
+
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(getContext(), "in Development", Toast.LENGTH_SHORT).show();
+                onGaleryClicked();
+                dialogImageUpload.dismiss();
+            }
+        });
     }
 
     void discardConfirmation(final Dialog dialog){
@@ -271,23 +283,21 @@ public class PesertaFragment extends Fragment {
         alertDialog.show();
     }
 
-    public void displayImage(){
-        if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-            openImage();
-        }else {
-            String[] permissionRequest = {Manifest.permission.READ_EXTERNAL_STORAGE};
-        }
-    }
-
-    private void openImage() {
-    }
-
     public void onTakePhotoClicked(){
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
             //Toast.makeText(getContext(),"Permission Already granted", Toast.LENGTH_SHORT).show();
             invokeCamera();
         }else {
             requestCameraPermission();
+        }
+    }
+
+    public void onGaleryClicked(){
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            //Toast.makeText(getContext(),"Permission Already granted", Toast.LENGTH_SHORT).show();
+            openGalery();
+        }else {
+            requestGaleryPermission();
         }
     }
 
@@ -314,6 +324,29 @@ public class PesertaFragment extends Fragment {
         }
     }
 
+    private void requestGaleryPermission(){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Permission needed")
+                    .setMessage("This permission is needed")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            requestPermissions(permissionRequest, GALERY_PERMISSION_REQUEST_CODE);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+        }else{
+            requestPermissions(permissionRequest, GALERY_PERMISSION_REQUEST_CODE);
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -324,6 +357,13 @@ public class PesertaFragment extends Fragment {
             }else {
                 Toast.makeText(getContext(),"Can't take photo without permission", Toast.LENGTH_SHORT).show();
             }
+        }else if(requestCode == GALERY_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openGalery();
+//                Toast.makeText(getContext(),"Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Can't open galery without permission", Toast.LENGTH_SHORT).show();
+            }
         }else{
             Toast.makeText(getContext(), "Gagal",Toast.LENGTH_SHORT).show();
         }
@@ -332,6 +372,12 @@ public class PesertaFragment extends Fragment {
     private void invokeCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
+    }
+
+    private void openGalery(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent.createChooser(intent, "Select Image"), GALERY_REQUEST_CODE);
     }
 
     @Override
@@ -344,6 +390,12 @@ public class PesertaFragment extends Fragment {
                 if(returnedObject instanceof Bitmap){
                     bmpImage = (Bitmap) returnedObject;
                     imgThumbnail.setImageBitmap(bmpImage);
+                }
+            }else if(requestCode == GALERY_REQUEST_CODE){
+                if(data.getData() != null){
+                    Uri selectedImageUri = data.getData();
+                    imgThumbnail.setImageURI(selectedImageUri);
+                    bmpImage = ((BitmapDrawable)imgThumbnail.getDrawable()).getBitmap();
                 }
             }
         }

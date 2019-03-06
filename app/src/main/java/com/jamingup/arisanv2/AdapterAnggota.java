@@ -26,14 +26,11 @@ public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHold
     private static final String TAG = "AdapterAnggota";
     private Context context;
     private Typeface TextMeOneStyle;
-    private PesertaViewModel pesertaViewModel;
-    private List<Peserta> pesertaList = new ArrayList<Peserta>();
 
     public AdapterAnggota(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
         TextMeOneStyle = typeface;
         this.context = context;
-        //pesertaList = pesertaViewModel
     }
 
     private static final DiffUtil.ItemCallback<Peserta> DIFF_CALLBACK = new DiffUtil.ItemCallback<Peserta>() {
@@ -130,35 +127,4 @@ public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHold
         return getItem(pos);
     }
 
-//    private void previewKelompok(int pos){
-//        View view = LayoutInflater.from(context).inflate(R.layout.preview_peserta, null, false);
-//        final TextView namaPeserta = (TextView) view.findViewById(R.id.textview_preview_nama_peserta);
-//        final TextView notelp = (TextView) view.findViewById(R.id.textview_preview_notelp);
-//        final TextView alamat = (TextView) view.findViewById(R.id.textview_preview_screen_alamat);
-//        CircleImageView button = (CircleImageView) view.findViewById(R.id.dismiss_preview_button);
-//        CircleImageView profilePic = (CircleImageView) view.findViewById(R.id.img_profile);
-//
-//        namaPeserta.setTypeface(TextMeOneStyle);
-//        notelp.setTypeface(TextMeOneStyle);
-//        alamat.setTypeface(TextMeOneStyle);
-//
-//        namaPeserta.setText(getItem(pos).getNamaP());
-//        notelp.setText("+62" + getItem(pos).getNamaK());
-//        alamat.setText(getItem(pos).getAlamat());
-//        Bitmap img = BitmapFactory.decodeByteArray(getItem(pos).getImg(),0, getItem(pos).getImg().length);
-//        profilePic.setImageBitmap(img);
-//
-//        final Dialog dialog = new Dialog(context);
-//        dialog.setContentView(view);
-//        dialog.setCanceledOnTouchOutside(false);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        dialog.show();
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//    }
 }

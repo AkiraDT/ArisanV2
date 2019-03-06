@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState != null){
+            navigation.setSelectedItemId(savedInstanceState.getInt("idNav"));
+        }
 
         TextMeOneStyle = Typeface.createFromAsset(getAssets(), "fonts/TextMeOne-Regular.ttf");
         toolbarText = (TextView) findViewById(R.id.toolbar_text);
