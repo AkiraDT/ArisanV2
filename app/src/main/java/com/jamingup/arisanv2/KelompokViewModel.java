@@ -33,6 +33,8 @@ public class KelompokViewModel extends AndroidViewModel {
         repository.deleteAllKelompok();
     };
 
+    public void deleteAnggotaInKelompok(String namaKelompok){repository.deleteAnggotaInKelompok(namaKelompok);}
+
     public LiveData<List<Kelompok>> getAllKelompok() {
         return allKelompok;
     }

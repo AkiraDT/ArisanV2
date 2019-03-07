@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,6 +38,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -138,6 +142,7 @@ public class KelompokFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+                kelompokViewModel.deleteAnggotaInKelompok(mAdapter.getKelompokAt(viewHolder.getAdapterPosition()).getNama());
                 kelompokViewModel.delete(mAdapter.getKelompokAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(getContext(), mAdapter.getKelompokAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
             }
@@ -392,10 +397,49 @@ public class KelompokFragment extends Fragment {
                 if(data.getData() != null){
                     Uri selectedImageUri = data.getData();
                     imgThumbnail.setImageURI(selectedImageUri);
-                    bmpImage = ((BitmapDrawable)imgThumbnail.getDrawable()).getBitmap();
+                    try {
+                        bmpImage = getThumbnail(selectedImageUri, getContext());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+    }
+
+    public static Bitmap getThumbnail(Uri uri, Context context) throws FileNotFoundException, IOException {
+        InputStream input = context.getContentResolver().openInputStream(uri);
+        final int THUMBNAIL_SIZE = 160;
+
+        BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
+        onlyBoundsOptions.inJustDecodeBounds = true;
+        onlyBoundsOptions.inDither=true;//optional
+        onlyBoundsOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;//optional
+        BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
+        input.close();
+
+        if ((onlyBoundsOptions.outWidth == -1) || (onlyBoundsOptions.outHeight == -1)) {
+            return null;
+        }
+
+        int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ? onlyBoundsOptions.outHeight : onlyBoundsOptions.outWidth;
+
+        double ratio = (originalSize > THUMBNAIL_SIZE) ? (originalSize / THUMBNAIL_SIZE) : 1.0;
+
+        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
+        bitmapOptions.inDither = true; //optional
+        bitmapOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;//
+        input = context.getContentResolver().openInputStream(uri);
+        Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
+        input.close();
+        return bitmap;
+    }
+
+    private static int getPowerOfTwoForSampleRatio(double ratio){
+        int k = Integer.highestOneBit((int)Math.floor(ratio));
+        if(k==0) return 1;
+        else return k;
     }
 
     //    //Uuntuk menyimpan data peserta dan menambahakan ke list

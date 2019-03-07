@@ -32,6 +32,8 @@ public class KelompokRepository {
         new DeleteAllKelompokAsyncTask(kelompokDao).execute();
     };
 
+    public void deleteAnggotaInKelompok(String namaKelompok){new DeleteAnggotaInKelompokAsyncTask(kelompokDao).execute(namaKelompok);}
+
     public LiveData<List<Kelompok>> getAllKelompok() {
         return allKelompok;
     }
@@ -88,6 +90,20 @@ public class KelompokRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             kelompokDao.deleteAllKelompok();
+            return null;
+        }
+    }
+
+    private  static class DeleteAnggotaInKelompokAsyncTask extends AsyncTask<String, Void, Void>{
+        private KelompokDao kelompokDao;
+
+        private DeleteAnggotaInKelompokAsyncTask(KelompokDao kelompokDao){
+            this.kelompokDao = kelompokDao;
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            kelompokDao.deleteAnggotaInKelompok(strings[0]);
             return null;
         }
     }
