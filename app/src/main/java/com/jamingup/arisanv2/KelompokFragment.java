@@ -224,14 +224,6 @@ public class KelompokFragment extends Fragment {
         });
     }
 
-    //untuk dipanggil ke PilihAnggotaFragment
-    public void updateJumlahAnggota(Kelompok kelompok){
-        updateRecycler();
-        if(kelompok.getId() != -1) {
-            kelompokViewModel.update(kelompok);
-        }
-    }
-
     private void uploadImage() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.add_image_form, null, false);
         final TextView labelText = (TextView) view.findViewById(R.id.label_text);
@@ -464,4 +456,5 @@ public class KelompokFragment extends Fragment {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("picIndex", picIndex);
     }
+    
 }

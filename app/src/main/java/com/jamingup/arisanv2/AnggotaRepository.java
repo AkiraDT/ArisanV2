@@ -10,6 +10,7 @@ public class AnggotaRepository {
     private AnggotaDao anggotaDao;
     private LiveData<List<Anggota>> allAnggota;
     private LiveData<List<Peserta>> allPeserta;
+    public int jumlahAnggota;
 
     public AnggotaRepository(Application application, String namaKelompok){
         ArisanDatabase arisanDatabase = ArisanDatabase.getInstance(application);
@@ -35,11 +36,16 @@ public class AnggotaRepository {
         new DeleteAnggotaAsyncTask(anggotaDao).execute(namaAnggota);
     };
 
+    public void setJumlahAnggota(String namaKelompok, int jumlah){
+        new SetJumlahAnggotaAsyncTask(anggotaDao, namaKelompok, jumlah).execute();
+    };
+
+
     public LiveData<List<Anggota>> getAllAnggota() {
         return allAnggota;
     }
 
-    //Hapus Ntar
+
     public LiveData<List<Peserta>> getPesertaInKelompok(String namaKelompok){
         LiveData<List<Peserta>> peserta = anggotaDao.getPesertaInKelompok(namaKelompok);
         return peserta;
@@ -97,6 +103,24 @@ public class AnggotaRepository {
         @Override
         protected Void doInBackground(String... strings) {
             anggotaDao.deleteAllAnggota(strings[0]);
+            return null;
+        }
+    }
+
+    private static class SetJumlahAnggotaAsyncTask extends AsyncTask<String, Integer, Void>{
+        private AnggotaDao anggotaDao;
+        String namaKelompok;
+        int jumlah;
+
+        private SetJumlahAnggotaAsyncTask(AnggotaDao anggotaDao, String namaKelompok, int jumlah){
+            this.anggotaDao = anggotaDao;
+            this.namaKelompok = namaKelompok;
+            this.jumlah = jumlah;
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            anggotaDao.setJumlahAnggota(namaKelompok, jumlah);
             return null;
         }
     }

@@ -28,18 +28,10 @@ public class KelompokViewActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private AnggotaFragment anggotaFragment;
-//    private PilihAnggotaFragment pilihAnggotaFragment;
-//    private PesertaViewModel pesertaViewModel;
     private String namaKelompok;
+    private int jumlahAnggota;
 
 
-//    private void updateList() {
-//        pesertaViewModel.getPesertaWithoutKelompok(namaKelompok).observe(this, new Observer<List<Peserta>>() {
-//            @Override
-//            public void onChanged(@Nullable List<Peserta> pesertas) {
-//            }
-//        });
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +40,6 @@ public class KelompokViewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-
 
         namaKelompok = getIntent().getStringExtra("nama");
 
@@ -73,6 +62,7 @@ public class KelompokViewActivity extends AppCompatActivity {
         double hadiah = Double.parseDouble(String.valueOf(getIntent().getIntExtra("hadiah", 0)));
         labelNominalHadiah.setText("Rp. " + String.format("%,.2f", hadiah));
         labelJumlahAnggota.setText(String.valueOf(getIntent().getIntExtra("jumlah", 0)) + " Anggota");
+        jumlahAnggota = getIntent().getIntExtra("jumlah", 0);
         idKelompok = getIntent().getIntExtra("idKelompok", -1);
         imgKelompok.setImageBitmap(img);
 
@@ -91,16 +81,14 @@ public class KelompokViewActivity extends AppCompatActivity {
                 .commit();
     }
 
-//    public void updateJumlahAnggota(int jumlahAnggota){
-//        if(idKelompok != -1) {
-//            Kelompok kelompok = new Kelompok(getIntent().getStringExtra("nama"), getIntent().getIntExtra("hadiah", 0), getIntent().getStringExtra("interval"), getIntent().getByteArrayExtra("img"));
-//            kelompok.setId(idKelompok);
-//            kelompok.setJumlahAnggota(jumlahAnggota);
-////            Toast.makeText(this, ""+ jumlahAnggota, Toast.LENGTH_SHORT).show();
-//            KelompokFragment kelompokFragment = (KelompokFragment) getSupportFragmentManager().findFragmentByTag("kelompoks");
-//            kelompokFragment.updateJumlahAnggota(kelompok);
-//        }
-//    }
+    public void updateLabelJumlahAnggota(int jumlah){
+        labelJumlahAnggota.setText(String.valueOf(jumlah) + " Anggota");
+        jumlahAnggota = jumlah;
+    }
+
+    public int getJumlahAnggota(){
+       return jumlahAnggota;
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

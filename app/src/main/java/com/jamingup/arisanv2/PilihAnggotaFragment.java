@@ -155,7 +155,7 @@ public class PilihAnggotaFragment extends DialogFragment {
                         anggotaFragment.addAnggota(mAdapter.getPesertaAt(mAdapter.getCheckedItemList().get(i)).getNama());
                     }
 
-                    //anggotaFragment.updateJumlahAnggota();    //Urung Bisa
+                    anggotaFragment.setJumlahAnggota(mAdapter.getCheckedItemList().size());
                     Toast.makeText(getContext(), mAdapter.getCheckedItemList().size() + "Anggota ditambahkan", Toast.LENGTH_SHORT).show();
                     getDialog().dismiss();
                 }

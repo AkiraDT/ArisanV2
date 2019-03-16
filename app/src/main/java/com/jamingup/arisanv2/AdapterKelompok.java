@@ -125,7 +125,7 @@ public class AdapterKelompok extends ListAdapter<Kelompok, AdapterKelompok.ViewH
                     Toast.makeText(context, "Long click "+ getItem(position).getId(), Toast.LENGTH_SHORT).show();
                 }else{
 //                    previewKelompok(position);
-                    Toast.makeText(context, "click "+ "Bisa", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "click "+ "Bisa", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, KelompokViewActivity.class);
                     intent.putExtra("nama", getItem(position).getNama());
                     intent.putExtra("jumlah", getItem(position).getJumlahAnggota());

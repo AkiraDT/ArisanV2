@@ -31,4 +31,8 @@ public interface AnggotaDao {
     //Hapus Ntar
     @Query("SELECT * FROM PESERTA_TABLE LEFT JOIN ANGGOTA_TABLE WHERE PESERTA_TABLE.nama IN (SELECT ANGGOTA_TABLE.namaP FROM ANGGOTA_TABLE WHERE ANGGOTA_TABLE.namaK LIKE :namaKelompok) GROUP BY PESERTA_TABLE.nama")
     LiveData<List<Peserta>> getPesertaInKelompok(String namaKelompok);
+
+    @Query("UPDATE KELOMPOK_TABLE SET jumlahAnggota = :jumlah WHERE nama LIKE :namaKelompok")
+    void setJumlahAnggota(String namaKelompok, int jumlah);
+
 }

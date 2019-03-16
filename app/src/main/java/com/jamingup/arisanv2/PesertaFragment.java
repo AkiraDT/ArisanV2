@@ -39,6 +39,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jamingup.arisanv2.preference.SharedPreference;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -67,7 +69,6 @@ public class PesertaFragment extends Fragment {
 
     private PesertaViewModel pesertaViewModel;
 
-    private int girlIndex = 0, boyIndex = 0;
     private int girlPic [] = {R.drawable.girl_1_8, R.drawable.girl_2_8, R.drawable.girl_3_8, R.drawable.girl_4_8};
     private int boyPic [] = {R.drawable.boy_1_8, R.drawable.boy_2_8, R.drawable.boy_3_8, R.drawable.boy_4_8};
 
@@ -76,10 +77,6 @@ public class PesertaFragment extends Fragment {
         pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
         updateRecycler();
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
-        if(savedInstanceState != null){
-            girlIndex = savedInstanceState.getInt("girlIndex");
-            boyIndex = savedInstanceState.getInt("boyIndex");
-        }
     }
 
     private void updateRecycler() {
@@ -446,20 +443,13 @@ public class PesertaFragment extends Fragment {
 
     //Uuntuk menyimpan data peserta dan menambahakan ke list
     private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img, String jenisKelamin){
-        if(girlIndex == 4){
-            girlIndex = 0;
-        }
-        if(boyIndex == 4){
-            boyIndex = 0;
-        }
-
         if(img == null){
             if(jenisKelamin.equalsIgnoreCase("laki-laki")){
-                img = BitmapFactory.decodeResource(getContext().getResources(), boyPic[boyIndex]);
-                boyIndex++;
+                img = BitmapFactory.decodeResource(getContext().getResources(), boyPic[SharedPreference.getInstance(getActivity()).getBoyIndex()]);
+                SharedPreference.getInstance(getActivity()).incrementBoyIndex();
             }else{
-                img = BitmapFactory.decodeResource(getContext().getResources(), girlPic[girlIndex]);
-                girlIndex++;
+                img = BitmapFactory.decodeResource(getContext().getResources(), girlPic[SharedPreference.getInstance(getActivity()).getGirlIndex()]);
+                SharedPreference.getInstance(getActivity()).incrementGirlIndex();
             }
         }
 
@@ -478,7 +468,5 @@ public class PesertaFragment extends Fragment {
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt("girlIndex", girlIndex);
-        savedInstanceState.putInt("boyIndex", boyIndex);
     }
 }

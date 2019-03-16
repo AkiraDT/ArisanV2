@@ -44,7 +44,6 @@ public class AnggotaFragment extends Fragment {
         updateRecycler();
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
 
-
         pilihAnggotaFragment = new PilihAnggotaFragment();
         fragmentManager = getActivity().getSupportFragmentManager();
         pilihAnggotaFragment.setArguments(b);
@@ -95,9 +94,15 @@ public class AnggotaFragment extends Fragment {
         updateRecycler();
     }
 
-//    public void updateJumlahAnggota(){
-//        ((KelompokViewActivity)getActivity()).updateJumlahAnggota(8);
-//    }
+    public void setJumlahAnggota(int jumlahAnggota){
+//        KelompokFragment kelompokFragment = (KelompokFragment) getActivity().getSupportFragmentManager().findFragmentByTag("kelompoks");
+        int jumlah;
+        jumlah = ((KelompokViewActivity)getActivity()).getJumlahAnggota();
+        jumlah += jumlahAnggota;
+        anggotaViewModel.setJumlahAnggota(namaKelompok, jumlah);
+        ((KelompokViewActivity)getActivity()).updateLabelJumlahAnggota(jumlah);
+    }
+
 
     public boolean isAnggotaEmpty(){
         if(mAdapter.getItemCount() > 1){

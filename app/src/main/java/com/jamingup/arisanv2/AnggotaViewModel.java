@@ -35,6 +35,10 @@ public class AnggotaViewModel extends AndroidViewModel{
         repository.deleteAllKelompok(namaKelompok);
     };
 
+    public void setJumlahAnggota(String namaKelompok, int jumlah){
+        repository.setJumlahAnggota(namaKelompok, jumlah);
+    }
+
     public LiveData<List<Anggota>> getAllAnggota() {
         return allAnggota;
     }
