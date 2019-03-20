@@ -37,6 +37,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jamingup.arisanv2.preference.SharedPreference;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -55,7 +57,7 @@ public class KelompokFragment extends Fragment {
     public static final int GALERY_REQUEST_CODE = 10;
     public static final int CAMERA_REQUEST_CODE = 1;
     private RecyclerView mRecyclerView;
-    private AdapterKelompok mAdapter;
+    public AdapterKelompok mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private FloatingActionButton fab;
@@ -66,8 +68,7 @@ public class KelompokFragment extends Fragment {
 
     private KelompokViewModel kelompokViewModel;
 
-    private int picIndex = 0;
-    private int []kelompokPic = {R.drawable.kelompok_1};
+    private int []kelompokPic = {R.drawable.kelompok_1, R.drawable.kelompok_2};
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +76,6 @@ public class KelompokFragment extends Fragment {
         updateRecycler();
 
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
-        if(savedInstanceState != null){
-            picIndex = savedInstanceState.getInt("picIndex");
-        }
     }
 
     private void updateRecycler() {
@@ -437,7 +435,8 @@ public class KelompokFragment extends Fragment {
     //    //Uuntuk menyimpan data peserta dan menambahakan ke list
     private void saveDataKelompok(String nama, int nominal, String interval, Bitmap img) {
         if(img == null){
-            img = BitmapFactory.decodeResource(getContext().getResources(), kelompokPic[picIndex]);
+            img = BitmapFactory.decodeResource(getContext().getResources(), kelompokPic[SharedPreference.getInstance(getActivity()).getKelompokIndex()]);
+            SharedPreference.getInstance(getActivity()).incrementKelompokIndex();
         }
         byte[] image = bitmapToByteArray(img);
         kelompokViewModel.insert(new Kelompok(nama, nominal, interval, image));
@@ -454,7 +453,6 @@ public class KelompokFragment extends Fragment {
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt("picIndex", picIndex);
     }
-    
+
 }
