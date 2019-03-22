@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:paddingStart="28dp"
+    android:paddingEnd="8dp"
+    android:layout_marginTop="8dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="1dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_profile_kelompok"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/tumblr_opq5t2c3pd1qbytw2o4_r1_5401"
+        />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="56dp"
+        android:paddingTop="8dp">
+        <TextView
+            android:id="@+id/textView_kelompok_list_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jamming Down"
+            android:maxLines="1"
+            android:textSize="24sp"
+            android:paddingLeft="24dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp"
+            android:textColor="#000"
+            android:gravity="center_vertical"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/textView_periode_list_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Periode Arisan"
+            android:textSize="12sp"
+            android:paddingLeft="24dp"
+            android:paddingRight="16dp"
+            android:textColor="@android:color/darker_gray"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+        <View
+            android:layout_marginTop="4dp"
+            android:layout_width="224dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            />
+    </LinearLayout>
+</RelativeLayout>
