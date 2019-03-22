@@ -20,14 +20,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jamingup.arisanv2.Kelompok.AnggotaFragment;
+import com.jamingup.arisanv2.Kelompok.KelompokFragment;
+import com.jamingup.arisanv2.Kocok.KocokKelompokFragment;
+import com.jamingup.arisanv2.Pemenang.PemenangKelompokFragment;
+import com.jamingup.arisanv2.Peserta.PesertaFragment;
+import com.jamingup.arisanv2.Tagihan.TagihanKelompokFragment;
+
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navigation;
     private FragmentManager fragmentManager;
-    private PesertaFragment pesertaFrag;
-    private KelompokFragment kelompokFrag;
-    private AnggotaFragment tagihanFrag;
-    private KocokFragment kocokFrag;
-
     private Dialog dialog;
     private Typeface TextMeOneStyle;
     private TextView toolbarText;
@@ -40,36 +42,34 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_peserta:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.mainContent, pesertaFrag)
+                            .replace(R.id.mainContent, new PesertaFragment())
                             .commit();
                     toolbarText.setText("Peserta Arisan");
                     return true;
                 case R.id.navigation_kelompok:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.mainContent, kelompokFrag, "kelompoks")
+                            .replace(R.id.mainContent, new KelompokFragment(), "kelompoks")
                             .commit();
                     toolbarText.setText("Kelompok Arisan");
                     return true;
                 case R.id.navigation_tagihan:
-//                    fragmentManager.beginTransaction()
-//                            .replace(R.id.mainContent, tagihanFrag)
-//                            .commit();
-//                    toolbarText.setText("Tagihan Arisan");
-                    Toast.makeText(getApplicationContext(), "Masih Dalam Pengembangan", Toast.LENGTH_SHORT).show();
-                    return false;
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.mainContent, new TagihanKelompokFragment())
+                            .commit();
+                    toolbarText.setText("Tagihan Arisan");
+                    return true;
                 case R.id.navigation_kocok:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.mainContent, kocokFrag)
+                            .replace(R.id.mainContent, new KocokKelompokFragment())
                             .commit();
                     toolbarText.setText("Kocok Arisan");
                     return true;
                 case R.id.navigation_pemenang:
-//                    fragmentManager.beginTransaction()
-//                            .replace(R.id.content, pilihKelompokPemenangFrag)
-//                            .commit();
-//                    toolbarText.setText("Pemenang Arisan");
-                    Toast.makeText(getApplicationContext(), "Masih Dalam Pengembangan", Toast.LENGTH_SHORT).show();
-                    return false;
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.mainContent, new PemenangKelompokFragment())
+                            .commit();
+                    toolbarText.setText("Pemenang Arisan");
+                    return true;
             }
             return false;
         }
@@ -88,14 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
         dialog = new Dialog(this);
         fragmentManager = getSupportFragmentManager();
-        pesertaFrag = new PesertaFragment();
-        kelompokFrag = new KelompokFragment();
-        tagihanFrag = new AnggotaFragment();
-        kocokFrag = new KocokFragment();
-
 
         fragmentManager.beginTransaction()
-                .add(R.id.mainContent , pesertaFrag)
+                .add(R.id.mainContent , new PesertaFragment())
                 .commit();
 
         toolbarSetting();

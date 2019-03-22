@@ -1,47 +1,30 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Kelompok;
 
-import android.Manifest;
-import android.app.Dialog;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
+import com.jamingup.arisanv2.Model.Peserta;
+import com.jamingup.arisanv2.Model.PesertaViewModel;
+import com.jamingup.arisanv2.R;
+
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class PilihAnggotaFragment extends DialogFragment {

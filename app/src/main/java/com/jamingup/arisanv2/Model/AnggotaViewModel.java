@@ -1,10 +1,8 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Model;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import java.util.List;

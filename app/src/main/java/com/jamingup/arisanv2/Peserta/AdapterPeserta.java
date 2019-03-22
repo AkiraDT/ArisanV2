@@ -1,4 +1,4 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Peserta;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -16,6 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jamingup.arisanv2.ItemClickListener;
+import com.jamingup.arisanv2.Model.Peserta;
+import com.jamingup.arisanv2.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,8 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Kelompok;
 
-import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +13,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.jamingup.arisanv2.Model.Anggota;
+import com.jamingup.arisanv2.Model.AnggotaViewModel;
+import com.jamingup.arisanv2.Model.AnggotaViewModelFactory;
+import com.jamingup.arisanv2.Model.Peserta;
+import com.jamingup.arisanv2.R;
 
 import java.util.List;
 

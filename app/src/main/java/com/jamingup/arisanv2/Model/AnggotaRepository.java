@@ -1,8 +1,10 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Model;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+
+import com.jamingup.arisanv2.ArisanDatabase;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;

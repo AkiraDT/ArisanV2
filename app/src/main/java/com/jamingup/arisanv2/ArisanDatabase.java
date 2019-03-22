@@ -7,7 +7,13 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
+
+import com.jamingup.arisanv2.Model.Anggota;
+import com.jamingup.arisanv2.Model.AnggotaDao;
+import com.jamingup.arisanv2.Model.Kelompok;
+import com.jamingup.arisanv2.Model.KelompokDao;
+import com.jamingup.arisanv2.Model.Peserta;
+import com.jamingup.arisanv2.Model.PesertaDao;
 
 @Database(entities = {Peserta.class, Kelompok.class, Anggota.class}, version =4)
 public abstract class ArisanDatabase extends RoomDatabase {

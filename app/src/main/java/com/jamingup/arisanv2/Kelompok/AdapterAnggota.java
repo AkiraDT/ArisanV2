@@ -1,12 +1,9 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Kelompok;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
@@ -17,8 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.jamingup.arisanv2.ItemClickListener;
+import com.jamingup.arisanv2.Model.Peserta;
+import com.jamingup.arisanv2.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

@@ -1,4 +1,4 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Model;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

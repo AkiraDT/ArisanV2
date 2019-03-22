@@ -1,20 +1,16 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Kelompok;
 
-import android.arch.lifecycle.Observer;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.List;
+import com.jamingup.arisanv2.R;
 
 public class KelompokViewActivity extends AppCompatActivity {
     private Typeface TextMeOneStyle;

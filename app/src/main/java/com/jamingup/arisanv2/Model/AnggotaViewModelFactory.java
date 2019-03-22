@@ -1,4 +1,4 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Model;
 
 import android.app.Application;
 import android.arch.lifecycle.ViewModel;

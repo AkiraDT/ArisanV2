@@ -1,4 +1,4 @@
-package com.jamingup.arisanv2;
+package com.jamingup.arisanv2.Kelompok;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -12,9 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,58 +31,61 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jamingup.arisanv2.Model.Kelompok;
+import com.jamingup.arisanv2.Model.KelompokViewModel;
+import com.jamingup.arisanv2.R;
 import com.jamingup.arisanv2.preference.SharedPreference;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
 import static android.app.Activity.RESULT_OK;
 
 
-public class PesertaFragment extends Fragment {
-
+public class KelompokFragment extends Fragment {
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 2;
     public static final int GALERY_PERMISSION_REQUEST_CODE = 3;
     public static final int GALERY_REQUEST_CODE = 10;
     public static final int CAMERA_REQUEST_CODE = 1;
     private RecyclerView mRecyclerView;
-    private AdapterPeserta mAdapter;
+    public AdapterKelompok mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     private FloatingActionButton fab;
     private Typeface TextMeOneStyle;
     private CircleImageView imgThumbnail;
     private Bitmap bmpImage;
     String[] permissionRequest = {Manifest.permission.CAMERA};
 
-    private PesertaViewModel pesertaViewModel;
+    private KelompokViewModel kelompokViewModel;
 
-    private int girlPic [] = {R.drawable.girl_1_8, R.drawable.girl_2_8, R.drawable.girl_3_8, R.drawable.girl_4_8};
-    private int boyPic [] = {R.drawable.boy_1_8, R.drawable.boy_2_8, R.drawable.boy_3_8, R.drawable.boy_4_8};
+    private int []kelompokPic = {R.drawable.kelompok_1, R.drawable.kelompok_2};
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
+        kelompokViewModel = ViewModelProviders.of(this).get(KelompokViewModel.class);
         updateRecycler();
+
         TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
     }
 
     private void updateRecycler() {
-        pesertaViewModel.getAllPeserta().observe(this, new Observer<List<Peserta>>() {
+        kelompokViewModel.getAllKelompok().observe(this, new Observer<List<Kelompok>>() {
             @Override
-            public void onChanged(@Nullable List<Peserta> pesertas) {
+            public void onChanged(@Nullable List<Kelompok> kelompoks) {
                 //update RecyclerView
-                mAdapter.submitList(pesertas);
+                mAdapter.submitList(kelompoks);
             }
         });
     }
@@ -93,25 +94,30 @@ public class PesertaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_peserta, container, false);
+        View view = inflater.inflate(R.layout.fragment_kelompok, container, false);
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addPeserta();
+//                Toast.makeText(getContext(),"Masih belum", Toast.LENGTH_SHORT).show();
+                addKelompok();
             }
         });
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_peserta);
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_kelompok);
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
+
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+
         // specify an adapter (see also next example)
-        mAdapter = new AdapterPeserta(TextMeOneStyle, getContext());
+        mAdapter = new AdapterKelompok(TextMeOneStyle, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
 //        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -126,8 +132,9 @@ public class PesertaFragment extends Fragment {
 //            }
 //        });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
@@ -135,39 +142,38 @@ public class PesertaFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                pesertaViewModel.delete(mAdapter.getPesertaAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getContext(),mAdapter.getPesertaAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
+                kelompokViewModel.deleteAnggotaInKelompok(mAdapter.getKelompokAt(viewHolder.getAdapterPosition()).getNama());
+                kelompokViewModel.delete(mAdapter.getKelompokAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(getContext(), mAdapter.getKelompokAt(viewHolder.getAdapterPosition()).getNama() + " dihapus", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(mRecyclerView);
+
         updateRecycler();
         return view;
     }
 
-    private void addPeserta(){
-        final View view = LayoutInflater.from(getContext()).inflate(R.layout.add_peserta_form, null, false);
-        final TextView namaPeserta = (TextView) view.findViewById(R.id.label_name);
-        final TextView notelp = (TextView) view.findViewById(R.id.label_telp);
-        final TextView alamat = (TextView) view.findViewById(R.id.label_alamat);
-        final TextView kode = (TextView) view.findViewById(R.id.kode_reg);
+    private void addKelompok() {
+        final View view = LayoutInflater.from(getContext()).inflate(R.layout.add_kelompok_form, null, false);
+        final TextView namaKelompok = (TextView) view.findViewById(R.id.label_name);
+        final TextView nominal = (TextView) view.findViewById(R.id.label_nominal);
+        final TextView interval = (TextView) view.findViewById(R.id.label_interval);
+        final TextView currency = (TextView) view.findViewById(R.id.currency);
         Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
         Button acceptButton = (Button) view.findViewById(R.id.accept_button);
-        final EditText editNamaPeserta = (EditText) view.findViewById(R.id.add_nama);
-        final EditText editNotelp = (EditText) view.findViewById(R.id.add_telp);
-        final EditText editAlamat = (EditText) view.findViewById(R.id.add_alamat);
+        final EditText editNamaKelompok = (EditText) view.findViewById(R.id.add_nama);
+        final EditText editNominal = (EditText) view.findViewById(R.id.add_nominal);
+        final RadioGroup intervalGroup = (RadioGroup) view.findViewById(R.id.add_interval);
         imgThumbnail = (CircleImageView) view.findViewById(R.id.img_profile);
-        final TextView jenisKelamin = (TextView) view.findViewById(R.id.label_jenisKelamin);
-        final RadioGroup jenisKelaminGroup = (RadioGroup) view.findViewById(R.id.add_jenisKelamin);
 
-        namaPeserta.setTypeface(TextMeOneStyle);
-        notelp.setTypeface(TextMeOneStyle);
-        alamat.setTypeface(TextMeOneStyle);
-        kode.setTypeface(TextMeOneStyle);
-        editNamaPeserta.setTypeface(TextMeOneStyle);
-        editNotelp.setTypeface(TextMeOneStyle);
-        editAlamat.setTypeface(TextMeOneStyle);
+        namaKelompok.setTypeface(TextMeOneStyle);
+        nominal.setTypeface(TextMeOneStyle);
+        interval.setTypeface(TextMeOneStyle);
+        currency.setTypeface(TextMeOneStyle);
+        editNamaKelompok.setTypeface(TextMeOneStyle);
+        editNominal.setTypeface(TextMeOneStyle);
+
         cancelButton.setTypeface(TextMeOneStyle);
         acceptButton.setTypeface(TextMeOneStyle);
-        jenisKelamin.setTypeface(TextMeOneStyle);
         bmpImage = null;
 
         final Dialog dialog = new Dialog(getContext());
@@ -181,12 +187,10 @@ public class PesertaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //mengecek apakah data sudah ada yang diisi
-                if(editNamaPeserta.getText().length() != 0 || editNotelp.getText().length() != 0
-                        || editAlamat.getText().length() != 0 || bmpImage != null){
+                if (editNamaKelompok.getText().length() != 0 || editNominal.getText().length() != 0) {
                     discardConfirmation(dialog);
-                }
-                else{
-                   dialog.dismiss();
+                } else {
+                    dialog.dismiss();
                 }
             }
         });
@@ -196,26 +200,16 @@ public class PesertaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "Masih dalam pengembangan", Toast.LENGTH_SHORT).show();
-                if(editNamaPeserta.getText().length() != 0 && editNotelp.getText().length() != 0
-                        && editAlamat.getText().length() != 0){
-                    //data validation
-                    List<Peserta> pesertaList = mAdapter.getListPeserta();
-                    boolean ada = false;
-                    for (int i = 0; i <pesertaList.size() ; i++) {
-                        if(pesertaList.get(i).getNama().equals(editNamaPeserta.getText().toString()))
-                            ada = true;
-                    }
-
-                    if(ada) {
-                        Toast.makeText(getContext(),"Nama Sudah ada", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        RadioButton radioButton = view.findViewById(jenisKelaminGroup.getCheckedRadioButtonId());
-                        saveDataPeserta(editNamaPeserta.getText().toString(), editNotelp.getText().toString(), editAlamat.getText().toString(), bmpImage, radioButton.getText().toString());
+                if (editNamaKelompok.getText().length() != 0 && editNominal.getText().length() != 0) {
+                    double nominal = Double.parseDouble(editNominal.getText().toString());
+                    if(nominal <= 100000000) {
+                        RadioButton radioButton = view.findViewById(intervalGroup.getCheckedRadioButtonId());
+                        saveDataKelompok(editNamaKelompok.getText().toString(), Integer.parseInt(editNominal.getText().toString()), radioButton.getText().toString(), bmpImage);
                         dialog.dismiss();
+                    }else {
+                        Toast.makeText(getContext(), "Maksimal Hadiah 100jt", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(getContext(), "Data harus terisi Semua", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -255,14 +249,13 @@ public class PesertaFragment extends Fragment {
         btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getContext(), "in Development", Toast.LENGTH_SHORT).show();
                 onGaleryClicked();
                 dialogImageUpload.dismiss();
             }
         });
     }
 
-    void discardConfirmation(final Dialog dialog){
+    void discardConfirmation(final Dialog dialog) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Anda yakin ingin membatalkan aksi");
         builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
@@ -284,11 +277,11 @@ public class PesertaFragment extends Fragment {
         alertDialog.show();
     }
 
-    public void onTakePhotoClicked(){
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+    public void onTakePhotoClicked() {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             //Toast.makeText(getContext(),"Permission Already granted", Toast.LENGTH_SHORT).show();
             invokeCamera();
-        }else {
+        } else {
             requestCameraPermission();
         }
     }
@@ -302,8 +295,8 @@ public class PesertaFragment extends Fragment {
         }
     }
 
-    private void requestCameraPermission(){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)){
+    private void requestCameraPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
             new AlertDialog.Builder(getContext())
                     .setTitle("Permission needed")
                     .setMessage("This permission is needed")
@@ -320,7 +313,7 @@ public class PesertaFragment extends Fragment {
                         }
                     })
                     .create().show();
-        }else{
+        } else {
             requestPermissions(permissionRequest, CAMERA_PERMISSION_REQUEST_CODE);
         }
     }
@@ -351,26 +344,26 @@ public class PesertaFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == CAMERA_PERMISSION_REQUEST_CODE){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 invokeCamera();
                 //Toast.makeText(getContext(),"Permission Granted", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(getContext(),"Can't take photo without permission", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Can't take photo without permission", Toast.LENGTH_SHORT).show();
             }
-        }else if(requestCode == GALERY_PERMISSION_REQUEST_CODE) {
+        } else if(requestCode == GALERY_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGalery();
 //                Toast.makeText(getContext(),"Permission Granted", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), "Can't open galery without permission", Toast.LENGTH_SHORT).show();
             }
-        }else{
-            Toast.makeText(getContext(), "Gagal",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Gagal", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void invokeCamera(){
+    private void invokeCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
     }
@@ -384,11 +377,11 @@ public class PesertaFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            if(requestCode == CAMERA_REQUEST_CODE){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST_CODE) {
                 Object returnedObject = data.getExtras().get("data");
 
-                if(returnedObject instanceof Bitmap){
+                if (returnedObject instanceof Bitmap) {
                     bmpImage = (Bitmap) returnedObject;
                     imgThumbnail.setImageBitmap(bmpImage);
                 }
@@ -406,7 +399,7 @@ public class PesertaFragment extends Fragment {
         }
     }
 
-    public static Bitmap getThumbnail(Uri uri, Context context) throws FileNotFoundException, IOException{
+    public static Bitmap getThumbnail(Uri uri, Context context) throws FileNotFoundException, IOException {
         InputStream input = context.getContentResolver().openInputStream(uri);
         final int THUMBNAIL_SIZE = 160;
 
@@ -441,20 +434,14 @@ public class PesertaFragment extends Fragment {
         else return k;
     }
 
-    //Uuntuk menyimpan data peserta dan menambahakan ke list
-    private void saveDataPeserta(String nama, String noTelp, String alamat, Bitmap img, String jenisKelamin){
+    //    //Uuntuk menyimpan data peserta dan menambahakan ke list
+    private void saveDataKelompok(String nama, int nominal, String interval, Bitmap img) {
         if(img == null){
-            if(jenisKelamin.equalsIgnoreCase("laki-laki")){
-                img = BitmapFactory.decodeResource(getContext().getResources(), boyPic[SharedPreference.getInstance(getActivity()).getBoyIndex()]);
-                SharedPreference.getInstance(getActivity()).incrementBoyIndex();
-            }else{
-                img = BitmapFactory.decodeResource(getContext().getResources(), girlPic[SharedPreference.getInstance(getActivity()).getGirlIndex()]);
-                SharedPreference.getInstance(getActivity()).incrementGirlIndex();
-            }
+            img = BitmapFactory.decodeResource(getContext().getResources(), kelompokPic[SharedPreference.getInstance(getActivity()).getKelompokIndex()]);
+            SharedPreference.getInstance(getActivity()).incrementKelompokIndex();
         }
-
         byte[] image = bitmapToByteArray(img);
-        pesertaViewModel.insert(new Peserta(nama, noTelp, alamat, image, jenisKelamin));
+        kelompokViewModel.insert(new Kelompok(nama, nominal, interval, image));
         updateRecycler();
         Toast.makeText(getContext(), "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
     }
@@ -469,4 +456,5 @@ public class PesertaFragment extends Fragment {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
     }
+
 }
