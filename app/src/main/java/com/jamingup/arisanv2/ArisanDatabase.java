@@ -15,7 +15,7 @@ import com.jamingup.arisanv2.Model.KelompokDao;
 import com.jamingup.arisanv2.Model.Peserta;
 import com.jamingup.arisanv2.Model.PesertaDao;
 
-@Database(entities = {Peserta.class, Kelompok.class, Anggota.class}, version =4)
+@Database(entities = {Peserta.class, Kelompok.class, Anggota.class}, version =4, exportSchema = false)
 public abstract class ArisanDatabase extends RoomDatabase {
 
     private static ArisanDatabase instance;

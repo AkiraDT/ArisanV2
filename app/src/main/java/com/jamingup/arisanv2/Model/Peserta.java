@@ -1,18 +1,30 @@
 package com.jamingup.arisanv2.Model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Bitmap;
 
-@Entity(tableName = "peserta_table")
-public class Peserta {
+import java.io.Serializable;
+
+@Entity(tableName = "peserta_table",
+        indices = {@Index(value = "peserta_nama", unique = true)
+})
+public class Peserta implements Serializable{
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "peserta_id")
     private int id;
+    @ColumnInfo(name = "peserta_nama")
     private String nama;
+    @ColumnInfo(name = "peserta_notelp")
     private String noTelp;
+    @ColumnInfo(name = "peserta_alamat")
     private String alamat;
+    @ColumnInfo(name = "peserta_img")
     private byte[] img;
+    @ColumnInfo(name = "peserta_jeniskelamin")
     private String jenisKelamin;
 
     @Ignore

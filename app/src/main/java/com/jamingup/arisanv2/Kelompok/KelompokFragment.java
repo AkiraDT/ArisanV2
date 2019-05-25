@@ -457,4 +457,9 @@ public class KelompokFragment extends Fragment {
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateRecycler();
+    }
 }

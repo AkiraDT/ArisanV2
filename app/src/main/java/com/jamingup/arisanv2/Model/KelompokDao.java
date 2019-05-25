@@ -24,7 +24,7 @@ public interface KelompokDao {
     @Query("DELETE FROM kelompok_table")
     void deleteAllKelompok();
 
-    @Query("SELECT * FROM kelompok_table ORDER BY nama ASC")
+    @Query("SELECT * FROM kelompok_table ORDER BY kelompok_nama ASC")
     LiveData<List<Kelompok>> getAllKelompok();
 
     @Query("DELETE FROM anggota_table Where namaK Like :namaKelompok")

@@ -37,6 +37,10 @@ public class AnggotaViewModel extends AndroidViewModel{
         repository.setJumlahAnggota(namaKelompok, jumlah);
     }
 
+    public void setStatusBayarAnggota(String namaKelompok, String namaAnggota, int status){
+        repository.setStatusBayarAnggota(namaKelompok, namaAnggota, status);
+    }
+
     public LiveData<List<Anggota>> getAllAnggota() {
         return allAnggota;
     }
@@ -44,5 +48,10 @@ public class AnggotaViewModel extends AndroidViewModel{
     public LiveData<List<Peserta>> getPesertaInKelompok(String namaKelompok){
         LiveData<List<Peserta>> peserta = repository.getPesertaInKelompok(namaKelompok);
         return peserta;
+    }
+
+    public LiveData<List<AnggotaTagihan>> getAnggotaTagihan(String namaKelompok){
+        LiveData<List<AnggotaTagihan>> anggotaTagihan = repository.getAnggotaTagihan(namaKelompok);
+        return anggotaTagihan;
     }
 }

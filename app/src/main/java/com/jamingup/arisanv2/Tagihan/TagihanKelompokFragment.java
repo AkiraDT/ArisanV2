@@ -159,4 +159,9 @@ public class TagihanKelompokFragment extends Fragment {
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateRecycler();
+    }
 }

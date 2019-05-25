@@ -42,6 +42,10 @@ public class AnggotaRepository {
         new SetJumlahAnggotaAsyncTask(anggotaDao, namaKelompok, jumlah).execute();
     };
 
+    public void setStatusBayarAnggota(String namaKelompok, String namaAnggota, int status){
+        new SetStatusBayarAnggotaAsyncTask(anggotaDao, namaKelompok, namaAnggota, status).execute();
+    };
+
 
     public LiveData<List<Anggota>> getAllAnggota() {
         return allAnggota;
@@ -51,6 +55,11 @@ public class AnggotaRepository {
     public LiveData<List<Peserta>> getPesertaInKelompok(String namaKelompok){
         LiveData<List<Peserta>> peserta = anggotaDao.getPesertaInKelompok(namaKelompok);
         return peserta;
+    }
+
+    public LiveData<List<AnggotaTagihan>> getAnggotaTagihan(String namaKelompok){
+        LiveData<List<AnggotaTagihan>> anggotaTagihan = anggotaDao.getAnggotaTagihan(namaKelompok);
+        return anggotaTagihan;
     }
 
     private static class InsertAnggotaAsyncTask extends AsyncTask<Anggota, Void, Void>{
@@ -123,6 +132,26 @@ public class AnggotaRepository {
         @Override
         protected Void doInBackground(String... strings) {
             anggotaDao.setJumlahAnggota(namaKelompok, jumlah);
+            return null;
+        }
+    }
+
+    private static class SetStatusBayarAnggotaAsyncTask extends AsyncTask<Void, Void, Void>{
+        private AnggotaDao anggotaDao;
+        String namaKelompok;
+        String namaAnggota;
+        int status;
+
+        private SetStatusBayarAnggotaAsyncTask(AnggotaDao anggotaDao, String namaKelompok, String namaAnggota, int status){
+            this.anggotaDao = anggotaDao;
+            this.namaKelompok = namaKelompok;
+            this.namaAnggota = namaAnggota;
+            this.status = status;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            anggotaDao.setStatusBayar(namaKelompok, namaAnggota, status);
             return null;
         }
     }
