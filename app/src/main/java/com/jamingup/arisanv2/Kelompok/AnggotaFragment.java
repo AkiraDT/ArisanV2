@@ -28,7 +28,7 @@ public class AnggotaFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private AdapterAnggota mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
     private String namaKelompok;
 
     private FragmentManager fragmentManager;
@@ -44,7 +44,7 @@ public class AnggotaFragment extends Fragment {
         namaKelompok = b.getString("namaKelompok");
         anggotaViewModel = ViewModelProviders.of(this, new AnggotaViewModelFactory(getActivity().getApplication(), namaKelompok)).get(AnggotaViewModel.class);
         updateRecycler();
-        GloriaFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/GloriaHallelujah-Regular.ttf");
+        TMOFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
 
         pilihAnggotaFragment = new PilihAnggotaFragment();
         fragmentManager = getActivity().getSupportFragmentManager();
@@ -76,7 +76,7 @@ public class AnggotaFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 //        mRecyclerView.setItemAnimator(new SlideInUpAnimator());
         // specify an adapter (see also next example)
-        mAdapter = new AdapterAnggota(GloriaFont, getContext());
+        mAdapter = new AdapterAnggota(TMOFont, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);

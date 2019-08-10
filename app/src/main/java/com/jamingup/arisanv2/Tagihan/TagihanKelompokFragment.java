@@ -32,7 +32,7 @@ public class TagihanKelompokFragment extends Fragment {
     public AdapterTagihanKelompok mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
     private KelompokViewModel kelompokViewModel;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class TagihanKelompokFragment extends Fragment {
         kelompokViewModel = ViewModelProviders.of(this).get(KelompokViewModel.class);
         updateRecycler();
 
-        GloriaFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/GloriaHallelujah-Regular.ttf");
+        TMOFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
     }
 
     private void updateRecycler() {
@@ -71,7 +71,7 @@ public class TagihanKelompokFragment extends Fragment {
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
 
         // specify an adapter (see also next example)
-        mAdapter = new AdapterTagihanKelompok(GloriaFont, getContext());
+        mAdapter = new AdapterTagihanKelompok(TMOFont, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
 //        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

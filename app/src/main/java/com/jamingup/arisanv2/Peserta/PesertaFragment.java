@@ -61,7 +61,7 @@ public class PesertaFragment extends Fragment {
     private AdapterPeserta mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private FloatingActionButton fab;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
     private CircleImageView imgThumbnail;
     private Bitmap bmpImage;
     String[] permissionRequest = {Manifest.permission.CAMERA};
@@ -76,7 +76,7 @@ public class PesertaFragment extends Fragment {
         pesertaViewModel = ViewModelProviders.of(this).get(PesertaViewModel.class);
 
         updateRecycler();
-        GloriaFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/GloriaHallelujah-Regular.ttf");
+        TMOFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
     }
 
     private void updateRecycler() {
@@ -111,7 +111,7 @@ public class PesertaFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
         // specify an adapter (see also next example)
-        mAdapter = new AdapterPeserta(GloriaFont, getContext());
+        mAdapter = new AdapterPeserta(TMOFont, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
 //        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -158,16 +158,16 @@ public class PesertaFragment extends Fragment {
         final TextView jenisKelamin = (TextView) view.findViewById(R.id.label_jenisKelamin);
         final RadioGroup jenisKelaminGroup = (RadioGroup) view.findViewById(R.id.add_jenisKelamin);
 
-        namaPeserta.setTypeface(GloriaFont);
-        notelp.setTypeface(GloriaFont);
-        alamat.setTypeface(GloriaFont);
-        kode.setTypeface(GloriaFont);
-        editNamaPeserta.setTypeface(GloriaFont);
-        editNotelp.setTypeface(GloriaFont);
-        editAlamat.setTypeface(GloriaFont);
-        cancelButton.setTypeface(GloriaFont);
-        acceptButton.setTypeface(GloriaFont);
-        jenisKelamin.setTypeface(GloriaFont);
+        namaPeserta.setTypeface(TMOFont);
+        notelp.setTypeface(TMOFont);
+        alamat.setTypeface(TMOFont);
+        kode.setTypeface(TMOFont);
+        editNamaPeserta.setTypeface(TMOFont);
+        editNotelp.setTypeface(TMOFont);
+        editAlamat.setTypeface(TMOFont);
+        cancelButton.setTypeface(TMOFont);
+        acceptButton.setTypeface(TMOFont);
+        jenisKelamin.setTypeface(TMOFont);
         bmpImage = null;
 
         final Dialog dialog = new Dialog(getContext());
@@ -235,9 +235,9 @@ public class PesertaFragment extends Fragment {
         final TextView labelText = (TextView) view.findViewById(R.id.label_text);
         Button btnTakePhoto = (Button) view.findViewById(R.id.btn_take_photo);
         Button btnGallery = (Button) view.findViewById(R.id.btn_gallery);
-        labelText.setTypeface(GloriaFont);
-        btnTakePhoto.setTypeface(GloriaFont);
-        btnGallery.setTypeface(GloriaFont);
+        labelText.setTypeface(TMOFont);
+        btnTakePhoto.setTypeface(TMOFont);
+        btnGallery.setTypeface(TMOFont);
         final Dialog dialogImageUpload = new Dialog(getContext());
         dialogImageUpload.setContentView(view);
         dialogImageUpload.setCanceledOnTouchOutside(false);

@@ -25,11 +25,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterKocokKelompok extends ListAdapter<Kelompok, AdapterKocokKelompok.ViewHolder> {
     private static final String TAG = "AdapterKelompok";
     private Context context;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
 
     public AdapterKocokKelompok(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
-        GloriaFont = typeface;
+        TMOFont = typeface;
         this.context = context;
     }
 
@@ -90,7 +90,7 @@ public class AdapterKocokKelompok extends ListAdapter<Kelompok, AdapterKocokKelo
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.kocok_kelompok_list_content, viewGroup, false);
 
-        return new ViewHolder(v, GloriaFont);
+        return new ViewHolder(v, TMOFont);
     }
 
     @Override

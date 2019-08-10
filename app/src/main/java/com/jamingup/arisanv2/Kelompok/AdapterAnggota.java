@@ -23,11 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHolder> {
     private static final String TAG = "AdapterAnggota";
     private Context context;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
 
     public AdapterAnggota(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
-        GloriaFont = typeface;
+        TMOFont = typeface;
         this.context = context;
     }
 
@@ -90,7 +90,7 @@ public class AdapterAnggota extends ListAdapter<Peserta, AdapterAnggota.ViewHold
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.anggota_list_content, viewGroup, false);
 
-        return new ViewHolder(v, GloriaFont);
+        return new ViewHolder(v, TMOFont);
     }
 
     @Override

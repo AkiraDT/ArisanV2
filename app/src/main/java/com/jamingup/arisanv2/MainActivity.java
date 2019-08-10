@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navigation;
     private FragmentManager fragmentManager;
     private Dialog dialog;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
     private TextView toolbarText;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             navigation.setSelectedItemId(savedInstanceState.getInt("idNav"));
         }
 
-        GloriaFont = Typeface.createFromAsset(getAssets(), "fonts/TextMeOne-Regular.ttf");
+        TMOFont = Typeface.createFromAsset(getAssets(), "fonts/TextMeOne-Regular.ttf");
         toolbarText = (TextView) findViewById(R.id.toolbar_text);
 
         dialog = new Dialog(this);
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TextView toolbar_text = (TextView) findViewById(R.id.toolbar_text);
-        toolbar_text.setTypeface(GloriaFont);
+        toolbar_text.setTypeface(TMOFont);
         if(toolbar_text != null && toolbar != null){
             toolbar_text.setText(getTitle());
             setSupportActionBar(toolbar);

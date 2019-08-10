@@ -25,7 +25,7 @@ public class TagihanAnggotaActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private AdapterTagihanAnggota mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
     private String namaKelompok;
 
     private AnggotaViewModel anggotaViewModel;
@@ -44,7 +44,7 @@ public class TagihanAnggotaActivity extends AppCompatActivity {
         anggotaViewModel = ViewModelProviders.of(this, new AnggotaViewModelFactory(getApplication(), namaKelompok)).get(AnggotaViewModel.class);
         updateRecycler();
 
-        GloriaFont = Typeface.createFromAsset(this.getAssets(), "fonts/GloriaHallelujah-Regular.ttf");
+        TMOFont = Typeface.createFromAsset(this.getAssets(), "fonts/TextMeOne-Regular.ttf");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_peserta);
         // use this setting to improve performance if you know that changes
@@ -55,8 +55,8 @@ public class TagihanAnggotaActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 //        mRecyclerView.setItemAnimator(new SlideInUpAnimator());
         // specify an adapter (see also next example)
-        mAdapter = new AdapterTagihanAnggota(GloriaFont, this);
-//        mAdapter = new AdapterTagihanSementara(GloriaFont, this);
+        mAdapter = new AdapterTagihanAnggota(TMOFont, this);
+//        mAdapter = new AdapterTagihanSementara(TMOFont, this);
 
         btn_simpan = (Button) findViewById(R.id.btn_simpanstatus);
         btn_simpan.setOnClickListener(new View.OnClickListener() {

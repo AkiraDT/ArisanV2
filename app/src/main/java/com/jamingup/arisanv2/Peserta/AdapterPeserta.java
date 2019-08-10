@@ -29,11 +29,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHolder> {
     private static final String TAG = "AdapterPeserta";
     private Context context;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
 
     public AdapterPeserta(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
-        GloriaFont = typeface;
+        TMOFont = typeface;
         this.context = context;
     }
 
@@ -104,7 +104,7 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.peserta_list_content, viewGroup, false);
 
-        return new ViewHolder(v, GloriaFont);
+        return new ViewHolder(v, TMOFont);
     }
 
     @Override
@@ -149,9 +149,9 @@ public class AdapterPeserta extends ListAdapter<Peserta, AdapterPeserta.ViewHold
         CircleImageView profilePic = (CircleImageView) view.findViewById(R.id.img_profile);
         final View viewBg = (View) view.findViewById(R.id.bgPreview);
 
-        namaPeserta.setTypeface(GloriaFont);
-        notelp.setTypeface(GloriaFont);
-        alamat.setTypeface(GloriaFont);
+        namaPeserta.setTypeface(TMOFont);
+        notelp.setTypeface(TMOFont);
+        alamat.setTypeface(TMOFont);
 
         namaPeserta.setText(getItem(pos).getNama());
         notelp.setText("+62" + getItem(pos).getNoTelp());

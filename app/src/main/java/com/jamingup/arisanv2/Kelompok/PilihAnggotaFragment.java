@@ -33,7 +33,7 @@ public class PilihAnggotaFragment extends DialogFragment {
     private AdapterPilihAnggota mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private FloatingActionButton fab;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
 
     private PesertaViewModel pesertaViewModel;
     //    private AnggotaViewModel anggotaViewModel;
@@ -52,7 +52,7 @@ public class PilihAnggotaFragment extends DialogFragment {
 //        anggotaViewModel = ViewModelProviders.of(ag).get(AnggotaViewModel.class);
 
         updateRecycler();
-        GloriaFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/GloriaHallelujah-Regular.ttf");
+        TMOFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
         allChecked = false;
     }
 
@@ -75,7 +75,7 @@ public class PilihAnggotaFragment extends DialogFragment {
         final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox_allCheck);
 
         TextView labelPilihSemua = (TextView) view.findViewById(R.id.label_pilihSemua);
-        labelPilihSemua.setTypeface(GloriaFont);
+        labelPilihSemua.setTypeface(TMOFont);
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -101,7 +101,7 @@ public class PilihAnggotaFragment extends DialogFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
         // specify an adapter (see also next example)
-        mAdapter = new AdapterPilihAnggota(GloriaFont, getContext());
+        mAdapter = new AdapterPilihAnggota(TMOFont, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
 //        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,

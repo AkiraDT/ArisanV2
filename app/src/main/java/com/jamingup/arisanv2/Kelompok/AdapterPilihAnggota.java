@@ -27,13 +27,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterPilihAnggota extends ListAdapter<Peserta, AdapterPilihAnggota.ViewHolder> {
     private static final String TAG = "AdapterPilihAnggota";
     private Context context;
-    private Typeface GloriaFont;
+    private Typeface TMOFont;
     private Boolean allChecked;
     private List<Integer> checkedItemList;
 
     public AdapterPilihAnggota(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
-        GloriaFont = typeface;
+        TMOFont = typeface;
         this.context = context;
         checkedItemList = new ArrayList<>();
     }
@@ -124,7 +124,7 @@ public class AdapterPilihAnggota extends ListAdapter<Peserta, AdapterPilihAnggot
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.pilih_anggota_list_content, viewGroup, false);
 
-        return new ViewHolder(v, GloriaFont);
+        return new ViewHolder(v, TMOFont);
     }
 
     @Override
