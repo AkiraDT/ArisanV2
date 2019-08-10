@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jamingup.arisanv2.Kelompok.AnggotaFragment;
 import com.jamingup.arisanv2.Kelompok.KelompokFragment;
 import com.jamingup.arisanv2.Kocok.KocokKelompokFragment;
 import com.jamingup.arisanv2.Pemenang.PemenangKelompokFragment;
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navigation;
     private FragmentManager fragmentManager;
     private Dialog dialog;
-    private Typeface TextMeOneStyle;
+    private Typeface GloriaFont;
     private TextView toolbarText;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             navigation.setSelectedItemId(savedInstanceState.getInt("idNav"));
         }
 
-        TextMeOneStyle = Typeface.createFromAsset(getAssets(), "fonts/TextMeOne-Regular.ttf");
+        GloriaFont = Typeface.createFromAsset(getAssets(), "fonts/TextMeOne-Regular.ttf");
         toolbarText = (TextView) findViewById(R.id.toolbar_text);
 
         dialog = new Dialog(this);
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TextView toolbar_text = (TextView) findViewById(R.id.toolbar_text);
-        toolbar_text.setTypeface(TextMeOneStyle);
+        toolbar_text.setTypeface(GloriaFont);
         if(toolbar_text != null && toolbar != null){
             toolbar_text.setText(getTitle());
             setSupportActionBar(toolbar);

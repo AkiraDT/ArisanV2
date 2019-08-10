@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.jamingup.arisanv2.R;
 
 public class KelompokViewActivity extends AppCompatActivity {
-    private Typeface TextMeOneStyle;
+    private Typeface GloriaFont;
     private TextView toolbarText;
 
     private TextView labelNama;
@@ -39,17 +39,17 @@ public class KelompokViewActivity extends AppCompatActivity {
 
         namaKelompok = getIntent().getStringExtra("nama");
 
-        TextMeOneStyle = Typeface.createFromAsset(getAssets(), "fonts/TextMeOne-Regular.ttf");
+        GloriaFont = Typeface.createFromAsset(getAssets(), "fonts/GloriaHallelujah-Regular.ttf");
         toolbarText = (TextView) findViewById(R.id.toolbar_text);
         labelNama = (TextView) findViewById(R.id.label_name);
         labelJumlahAnggota = (TextView) findViewById(R.id.label_jumlah_anggota);
         labelNominalHadiah = (TextView) findViewById(R.id.label_nominal);
         imgKelompok = (ImageView) findViewById(R.id.img_profile_kelompok);
 
-        toolbarText.setTypeface(TextMeOneStyle);
-        labelNama.setTypeface(TextMeOneStyle);
-        labelJumlahAnggota.setTypeface(TextMeOneStyle);
-        labelNominalHadiah.setTypeface(TextMeOneStyle);
+        toolbarText.setTypeface(GloriaFont);
+        labelNama.setTypeface(GloriaFont);
+        labelJumlahAnggota.setTypeface(GloriaFont);
+        labelNominalHadiah.setTypeface(GloriaFont);
 
         toolbarText.setText("Anggota Arisan");
 

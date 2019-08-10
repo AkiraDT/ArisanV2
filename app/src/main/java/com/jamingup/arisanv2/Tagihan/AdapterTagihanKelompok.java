@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jamingup.arisanv2.ItemClickListener;
-import com.jamingup.arisanv2.Kelompok.KelompokViewActivity;
 import com.jamingup.arisanv2.Model.Kelompok;
 import com.jamingup.arisanv2.R;
 
@@ -25,11 +24,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterTagihanKelompok extends ListAdapter<Kelompok, AdapterTagihanKelompok.ViewHolder> {
     private static final String TAG = "AdapterKelompok";
     private Context context;
-    private Typeface TextMeOneStyle;
+    private Typeface GloriaFont;
 
     public AdapterTagihanKelompok(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
-        TextMeOneStyle = typeface;
+        GloriaFont = typeface;
         this.context = context;
     }
 
@@ -98,7 +97,7 @@ public class AdapterTagihanKelompok extends ListAdapter<Kelompok, AdapterTagihan
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.tagihan_kelompok_list_content, viewGroup, false);
 
-        return new ViewHolder(v, TextMeOneStyle);
+        return new ViewHolder(v, GloriaFont);
     }
 
     @Override

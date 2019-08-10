@@ -1,27 +1,14 @@
 package com.jamingup.arisanv2.Pemenang;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,28 +16,15 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jamingup.arisanv2.Model.Kelompok;
 import com.jamingup.arisanv2.Model.KelompokViewModel;
 import com.jamingup.arisanv2.R;
-import com.jamingup.arisanv2.preference.SharedPreference;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class PemenangKelompokFragment extends Fragment {
@@ -58,7 +32,7 @@ public class PemenangKelompokFragment extends Fragment {
     public AdapterPemenangKelompok mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private Typeface TextMeOneStyle;
+    private Typeface GloriaFont;
     private KelompokViewModel kelompokViewModel;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +40,7 @@ public class PemenangKelompokFragment extends Fragment {
         kelompokViewModel = ViewModelProviders.of(this).get(KelompokViewModel.class);
         updateRecycler();
 
-        TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
+        GloriaFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/GloriaHallelujah-Regular.ttf");
     }
 
     private void updateRecycler() {
@@ -97,7 +71,7 @@ public class PemenangKelompokFragment extends Fragment {
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
 
         // specify an adapter (see also next example)
-        mAdapter = new AdapterPemenangKelompok(TextMeOneStyle, getContext());
+        mAdapter = new AdapterPemenangKelompok(GloriaFont, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
 //        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

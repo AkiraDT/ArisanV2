@@ -63,7 +63,7 @@ public class KelompokFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
 
     private FloatingActionButton fab;
-    private Typeface TextMeOneStyle;
+    private Typeface GloriaFont;
     private CircleImageView imgThumbnail;
     private Bitmap bmpImage;
     String[] permissionRequest = {Manifest.permission.CAMERA};
@@ -77,7 +77,7 @@ public class KelompokFragment extends Fragment {
         kelompokViewModel = ViewModelProviders.of(this).get(KelompokViewModel.class);
         updateRecycler();
 
-        TextMeOneStyle = Typeface.createFromAsset(getActivity().getAssets(), "fonts/TextMeOne-Regular.ttf");
+        GloriaFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/GloriaHallelujah-Regular.ttf");
     }
 
     private void updateRecycler() {
@@ -117,7 +117,7 @@ public class KelompokFragment extends Fragment {
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
 
         // specify an adapter (see also next example)
-        mAdapter = new AdapterKelompok(TextMeOneStyle, getContext());
+        mAdapter = new AdapterKelompok(GloriaFont, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
 //        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -165,15 +165,15 @@ public class KelompokFragment extends Fragment {
         final RadioGroup intervalGroup = (RadioGroup) view.findViewById(R.id.add_interval);
         imgThumbnail = (CircleImageView) view.findViewById(R.id.img_profile);
 
-        namaKelompok.setTypeface(TextMeOneStyle);
-        nominal.setTypeface(TextMeOneStyle);
-        interval.setTypeface(TextMeOneStyle);
-        currency.setTypeface(TextMeOneStyle);
-        editNamaKelompok.setTypeface(TextMeOneStyle);
-        editNominal.setTypeface(TextMeOneStyle);
+        namaKelompok.setTypeface(GloriaFont);
+        nominal.setTypeface(GloriaFont);
+        interval.setTypeface(GloriaFont);
+        currency.setTypeface(GloriaFont);
+        editNamaKelompok.setTypeface(GloriaFont);
+        editNominal.setTypeface(GloriaFont);
 
-        cancelButton.setTypeface(TextMeOneStyle);
-        acceptButton.setTypeface(TextMeOneStyle);
+        cancelButton.setTypeface(GloriaFont);
+        acceptButton.setTypeface(GloriaFont);
         bmpImage = null;
 
         final Dialog dialog = new Dialog(getContext());
@@ -229,9 +229,9 @@ public class KelompokFragment extends Fragment {
         final TextView labelText = (TextView) view.findViewById(R.id.label_text);
         Button btnTakePhoto = (Button) view.findViewById(R.id.btn_take_photo);
         Button btnGallery = (Button) view.findViewById(R.id.btn_gallery);
-        labelText.setTypeface(TextMeOneStyle);
-        btnTakePhoto.setTypeface(TextMeOneStyle);
-        btnGallery.setTypeface(TextMeOneStyle);
+        labelText.setTypeface(GloriaFont);
+        btnTakePhoto.setTypeface(GloriaFont);
+        btnGallery.setTypeface(GloriaFont);
         final Dialog dialogImageUpload = new Dialog(getContext());
         dialogImageUpload.setContentView(view);
         dialogImageUpload.setCanceledOnTouchOutside(false);

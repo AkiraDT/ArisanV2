@@ -17,12 +17,9 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jamingup.arisanv2.ItemClickListener;
-import com.jamingup.arisanv2.Model.Anggota;
 import com.jamingup.arisanv2.Model.AnggotaTagihan;
-import com.jamingup.arisanv2.Model.Peserta;
 import com.jamingup.arisanv2.R;
 import java.util.List;
 
@@ -31,13 +28,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterTagihanAnggota extends ListAdapter<AnggotaTagihan, AdapterTagihanAnggota.ViewHolder> {
     private static final String TAG = "AdapterTagihanAnggota";
     private Context context;
-    private Typeface TextMeOneStyle;
+    private Typeface GloriaFont;
     private boolean isEdited = false;
     private List<AnggotaTagihan> anggotaList;
 
     public AdapterTagihanAnggota(Typeface typeface, Context context) {
         super(DIFF_CALLBACK);
-        TextMeOneStyle = typeface;
+        GloriaFont = typeface;
         this.context = context;
     }
 
@@ -119,7 +116,7 @@ public class AdapterTagihanAnggota extends ListAdapter<AnggotaTagihan, AdapterTa
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.tagihan_peserta_list_content, viewGroup, false);
 
-        return new ViewHolder(v, TextMeOneStyle);
+        return new ViewHolder(v, GloriaFont);
     }
 
     @Override
